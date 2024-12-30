@@ -1,5 +1,5 @@
 # diffy-q-problem-solution-sets
- This repository contains an archive of ~110 pages of problem and solution sets for 15+ types of differential equations/solution techniques, typset in LaTeX that I used for my MATH 3400 Supplemental Instruction course
+ This repository contains an archive of ~110 pages of problem and solution sets for 15+ types of differential equations/solution techniques, typset in LaTeX that I created for my MATH 3400 Supplemental Instruction course
 
 ## Notes:
 - If there are any errors, please feel free to let me know.
