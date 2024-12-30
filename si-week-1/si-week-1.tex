@@ -1,0 +1,203 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1. Document Class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+ % The first command you will always have will declare your document class. This tells LaTeX what type of document you are creating (article, presentation, poster, etc). 
+% \documentclass is the command
+% in {} you specify the type of document
+% in [] you define additional parameters
+ 
+\documentclass[a4paper,12pt]{article} % This defines the style of your paper
+
+% We usually use the article type. The additional parameters are the format of the paper you want to print it on and the standard font size. For us this is a4paper and 12pt.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 2. Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Packages are libraries of commands that LaTeX can call when compiling the document. With the specialized commands you can customize the formatting of your document.
+% If the packages we call are not installed yet, TeXworks will ask you to install the necessary packages while compiling.
+
+% First, we usually want to set the margins of our document. For this we use the package geometry. We call the package with the \usepackage command. The package goes in the {}, the parameters again go into the [].
+\usepackage[top = 2.5cm, bottom = 2.5cm, left = 2.5cm, right = 2.5cm]{geometry} 
+
+% Unfortunately, LaTeX has a hard time interpreting German Umlaute. The following two lines and packages should help. If it doesn't work for you please let me know.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{cancel}
+\usepackage{amssymb}
+
+% The following two packages - multirow and booktabs - are needed to create nice looking tables.
+\usepackage{multirow} % Multirow is for tables with multiple rows within one cell.
+\usepackage{booktabs} % For even nicer tables.
+
+% As we usually want to include some plots (.pdf files) we need a package for that.
+\usepackage{graphicx} 
+
+% The default setting of LaTeX is to indent new paragraphs. This is useful for articles. But not really nice for homework problem sets. The following command sets the indent to 0.
+\usepackage{setspace}
+\setlength{\parindent}{0in}
+
+% Package to place figures where you want them.
+\usepackage{float}
+
+% The fancyhdr package let's us create nice headers.
+\usepackage{fancyhdr}
+
+% Citing references will be hyperlinked and blue
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+
+\usepackage{amsmath}
+
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 3. Header (and Footer)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% To make our document nice we want a header and number the pages in the footer.
+
+\pagestyle{fancy} % With this command we can customize the header style.
+
+\fancyhf{} % This makes sure we do not have other information in our header or footer.
+
+\lhead{\footnotesize }% \lhead puts text in the top left corner. \footnotesize sets our font to a smaller size.
+
+%\rhead works just like \lhead (you can also use \chead)
+\rhead{\footnotesize Collins \thepage} %<---- Fill in your lastnames.
+
+% Similar commands work for the footer (\lfoot, \cfoot and \rfoot).
+% We want to put our page number in the center.
+\cfoot{\footnotesize} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 4. Your document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Now, you need to tell LaTeX where your document starts. We do this with the \begin{document} command.
+% Like brackets every \begin{} command needs a corresponding \end{} command. We come back to this later.
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title section of the document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% For the title section we want to reproduce the title section of the Problem Set and add your names.
+
+\thispagestyle{empty} % This command disables the header on the first page. 
+
+\begin{tabular}{p{15.5cm}} % This is a simple tabular environment to align your text nicely 
+\\ Collin Collins \\
+MATH 3400\\
+SI Session 1 Practice Problems and Solutions\\
+24 January 2023 \\
+\hline % \hline produces horizontal lines.
+
+\end{tabular} 
+
+\subsection*{Problem 1.}
+
+Find the solution of the following IVP
+$$ y' = \frac{x + xy}{(x+1)^2 - 1}\quad;\quad y(0)=1 $$
+
+Try it out before looking at the solution
+
+\pagebreak
+
+\subsection*{Solution to 1.}
+Let's profile this differential equation based on the types that we have learned.\\
+
+This cannot be an autonomous differential equation because the derivative of $y$ depends on our independent variable, $x$.\\
+
+Let's check if it is separable. To do this we will first factor out an $x$ from the numerator and attempt to split the right-hand-side into the product of $h(x)$ and $g(y)$:
+
+$$ y' = \frac{x(1+y)}{(x+1)^2 - 1} \quad\implies\quad y' = \underbrace{\left(\frac{x}{(x+1)^2-1}\right)}_{h(x)}\underbrace{\left(1+y\right)}_{g(y)}.
+$$
+Now, let's use Leibniz notation and put $y$'s and $dy$'s on one side and put $x$'s and $dx$'s on the other side.
+$$ \frac{dy}{dx} = \left(\frac{x}{(x+1)^2-1}\right){\left(1+y\right)} \quad\implies\quad \frac{1}{1 + y}dy = \frac{x}{(x+1)^2-1}dx. $$
+From here, we can remove the $dy$ and $dx$ by integrating both sides.
+$$ \int \frac{1}{1 + y}dy = \int \frac{x}{(x+1)^2-1}dx \quad\implies\quad \ln{|1 + y|} = \int \frac{x}{(x+1)^2-1}dx, $$
+Let's take a moment and deal with the integral in $x$ separately. We will perform a $u$-sub, letting $u=x+1$ and $du = 1$.
+$$ \int \frac{u - 1}{u^2 - 1}du \quad\implies\quad \int \frac{u-1}{(u+1)(u-1)}du \quad\implies\quad  \int \frac{1}{u+1}du = \ln{|u+1|} + C $$
+Let's resubstitute $x+1$ for the $u$:
+$$ \ln{|(x + 1) + 1|} + C \quad\implies\quad \text{RHS} = \ln{|x + 2|} + C. $$
+We can now set the left-hand-side that involves the $y$: $\ln{|1 + y|}$ equal to the right-hand-side that involves the $x$.
+$$ \ln{|1 + y|} = \ln{|x + 2|} + C \quad\overset{\text{exponentiate}}\implies\quad |1 + y| = e^{\ln{|x+2|} + C} \quad\overset{C_2=e^{C}}\implies\quad |1+y| = C_2|x+2|.$$
+Let's cancel the absolute value signs from both sides:
+$$ 1 + y = C_2(x + 2) \quad\implies\quad y_g = C_2(x + 2) - 1. $$
+Notice that the $y_g$ indicates that this is the general solution. We're given an initial condition, however. $y(0)=1$ is our initial condition. The easiest way that I've heard of applying this initial condition to find our constant of integration (and thus our specific solution) is to treat it as an ordered pair: $(x=0, y=1)$. Anywhere we see and $x$, we put a 0. Anywhere we see a $y$ we put a 1.\\
+
+$$[1] = C_2([0] + 2) - 1 \quad\implies\quad 1 = 2C_2 - 1 \quad\therefore\quad C_2 = 1,$$
+$$ y_s(x) = (x + 2)-1 \quad\implies\quad \boxed{y_s(x) = x + 1} $$
+\\
+--------------------------------------------------------------------------------------------------------------------
+
+\pagebreak
+
+\subsection*{2.} 
+Sketch a phase diagram with arrows on the number line provided and answer the questions regarding the following differential equation:
+$$ y^{\prime} = 6(y-1)(y^2+3y+2). $$
+(a) What type of differential equation is this and why?\\
+(b) Find the critical points and describe the equilibrium solutions.\\
+(c) Draw a phase line for the differential equation.\\
+(d) What is the stability of each solution?\\
+(e) Determine the limits below, for a solution with initial condition $y(0)=-\frac{3}{4}$
+$$
+\begin{aligned}
+& \lim _{t \rightarrow \infty} y(t)=  \quad\quad\quad\quad \lim _{t \rightarrow-\infty} y(t)=
+\end{aligned}
+$$\\
+\\
+\\
+\\
+\\
+\\
+
+$$ ----------------------------- $$
+\pagebreak
+
+\subsubsection*{Solution to 2:}
+\textbf{(a)} The differential equation is an autonomous equation because it lacks dependance on the independent variable, $t$.\\
+
+\textbf{(b)} The equilibrium solutions occur when $y^{\prime}$ = 0, which occurs when any of the factors of this differential equation are equal to zero. Let's factor the quadratic on the right:
+$$ y^{\prime} = 6(y-1)\underbrace{(y^2+3y+2)}_{(y + 2)(y + 1)}, $$
+\text{By the zero-product property, $y' = 0$ when $y = 1, -2, -1$}. To express these roots as solutions to the differential equation, it's important that they follow this form:
+$$ \boxed{y_1(t) = 1 \quad;\quad y_2(t) = -2 \quad;\quad y_3(t) = -1}$$
+\textbf{(c)} We can draw a phase line for the differential equation by labelling the critical points (the roots) on a number line and performing a sign diagram analysis by choosing any $y$ value around the critical points and determining the sign of $y^{\prime}$:\\
+$$ ---(-2)-----(-1)------(1)--- $$
+Test any $y$ value in the interval $(-\infty, -2)$. Let's pick $y=-3$:
+$$ (-\infty, -2): \quad\overset{\text{sub }y=-3\text{ into }y^{\prime}}\implies \quad y^{\prime} = 6(-3-1)(-3 + 2)(-3+1) \quad\implies ... $$
+$$ ...\implies \quad y^{\prime} = -48. $$
+We only care about the sign of the answer. In this case, it's negative which means that the derivative is negative everywhere in this interval. Let's continue with the analysis for the rest of the intervals:
+$$ (-2,-1): \quad\overset{\text{sub }y=-1.5\text{ into }y^{\prime}}\implies \quad y^{\prime} = 6(-1.5-1)(-1.5+2)(-1.5+1) \quad\implies \quad y^{\prime}=+3.75.$$
+$$ (-1,1): \quad\overset{\text{sub }y=0.5\text{ into }y^{\prime}}\implies \quad y^{\prime} = 6(0.5-1)(0.5+2)(0.5+1) \quad\implies \quad y^{\prime} = -11.25.$$
+$$ (1,\infty): \quad\overset{\text{sub }y=2\text{ into }y^{\prime}}\implies \quad y^{\prime} = 6(2-1)(2+2)(2+1) \quad\implies \quad y^{\prime} = +72. $$
+With our signs, let's make our sign diagram on top of our number line:
+$$ ---(-2)-----(-1)------(1)---  $$
+$$ - \quad\quad\quad\quad\quad + \quad\quad\quad\quad\quad\quad\quad - \quad\quad\quad\quad\quad\quad + $$
+The $y$-axis is the horizontal so when the derivative sign is negative, it will point towards the decreasing $y$ direction. If the derivative sign is positive, it will point towards the increasing $y$ direction:
+$$ -<--(-2)-->--(-1)--<--(1)-->- $$
+\pagebreak
+
+\textbf{(d)} From the diagram above, we see that:
+$$ \boxed{y_1(t) =1 \text{ is a source, which is unstable.}} $$
+$$ \boxed{y_2(t) =-2 \text{ is a source, which is unstable.}} $$
+
+$$\boxed{y_3(t) =-1 \text{ is a sink, which is stable.}} $$
+
+\textbf{(e)} We have an initial condition that is $-\frac{3}{4}$ at $t=0$. Let's think about what would happen if we ran the clock forward and followed our arrows. If we were to place this point on our number line and let it move with the arrows, it would be between $y=-1$ and $y=1$. The arrow pushes it towards the stable point of $y=-1$ where it stays forever. In math:
+$$ \boxed{\text{For $y(0)=-\frac{3}{4}$}\quad :\quad \lim_{t\to \infty} y(t) = -1} $$
+Now, if we were to run the clock backwards, we would place our point $y=-\frac{3}{4}$ on the number line again, but this time we will ask where it came from. This is when it helps to think of unstable equilibria as sources. We see from the diagram that the source of $y=-\frac{3}{4}$ is $y=1$. Putting this in math:
+$$ \boxed{\text{For $y(0)=-\frac{3}{4}$}\quad:\quad \lim_{t\to -\infty} y(t) = 1} $$
+
+
+
+\end{document}

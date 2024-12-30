@@ -1,0 +1,394 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1. Document Class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+ % The first command you will always have will declare your document class. This tells LaTeX what type of document you are creating (article, presentation, poster, etc). 
+% \documentclass is the command
+% in {} you specify the type of document
+% in [] you define additional parameters
+ 
+\documentclass[a4paper,12pt]{article} % This defines the style of your paper
+
+% We usually use the article type. The additional parameters are the format of the paper you want to print it on and the standard font size. For us this is a4paper and 12pt.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 2. Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Packages are libraries of commands that LaTeX can call when compiling the document. With the specialized commands you can customize the formatting of your document.
+% If the packages we call are not installed yet, TeXworks will ask you to install the necessary packages while compiling.
+
+% First, we usually want to set the margins of our document. For this we use the package geometry. We call the package with the \usepackage command. The package goes in the {}, the parameters again go into the [].
+\usepackage[top = 2.5cm, bottom = 2.5cm, left = 2.5cm, right = 2.5cm]{geometry} 
+
+% Unfortunately, LaTeX has a hard time interpreting German Umlaute. The following two lines and packages should help. If it doesn't work for you please let me know.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{cancel}
+\usepackage{amssymb}
+
+% The following two packages - multirow and booktabs - are needed to create nice looking tables.
+\usepackage{multirow} % Multirow is for tables with multiple rows within one cell.
+\usepackage{booktabs} % For even nicer tables.
+
+% As we usually want to include some plots (.pdf files) we need a package for that.
+\usepackage{graphicx} 
+
+% The default setting of LaTeX is to indent new paragraphs. This is useful for articles. But not really nice for homework problem sets. The following command sets the indent to 0.
+\usepackage{setspace}
+\setlength{\parindent}{0in}
+
+% Package to place figures where you want them.
+\usepackage{float}
+
+% The fancyhdr package let's us create nice headers.
+\usepackage{fancyhdr}
+
+% Citing references will be hyperlinked and blue
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+
+\usepackage{amsmath}
+
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 3. Header (and Footer)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% To make our document nice we want a header and number the pages in the footer.
+
+\pagestyle{fancy} % With this command we can customize the header style.
+
+\fancyhf{} % This makes sure we do not have other information in our header or footer.
+
+\lhead{\footnotesize }% \lhead puts text in the top left corner. \footnotesize sets our font to a smaller size.
+
+%\rhead works just like \lhead (you can also use \chead)
+\rhead{\footnotesize Collins \thepage} %<---- Fill in your lastnames.
+
+% Similar commands work for the footer (\lfoot, \cfoot and \rfoot).
+% We want to put our page number in the center.
+\cfoot{\footnotesize} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 4. Your document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Now, you need to tell LaTeX where your document starts. We do this with the \begin{document} command.
+% Like brackets every \begin{} command needs a corresponding \end{} command. We come back to this later.
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title section of the document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% For the title section we want to reproduce the title section of the Problem Set and add your names.
+
+\thispagestyle{empty} % This command disables the header on the first page. 
+
+\begin{tabular}{p{15.5cm}} % This is a simple tabular environment to align your text nicely 
+\\ Collin Collins \\
+MATH 3400\\
+SI Session 6 Practice Problems and Solutions\\
+5 March 2024 \\
+\hline % \hline produces horizontal lines.
+
+\end{tabular} 
+
+\subsection*{Problem 1} Solve the differential equation:
+$$ y'' + 2y' + 11y = 3\sin(3t) + 5\cos(3t) \quad ; \quad y(0)=1 \quad;\quad y'\left(0\right)=2 $$
+\\
+ 
+Try it out before looking at the solution.
+\pagebreak
+ 
+ \subsubsection*{Solution to Problem 1:}
+ We have what, from the left-hand-side appears to be a 2nd order, linear, constant coefficient, differential equation. However, on the right, we have some combination of sines and cosines, making our differential equation non-homogenous. To solve this differential equation, we can use the method of Undetermined Coefficients. We choose this because the right-hand-side, $f(t)$, is of one of the following forms:
+ $$ \begin{array}{|c|}
+\hline f(t) \\
+\hline a e^{\beta t} \\
+a \cos (\beta t) \\
+b \sin (\beta t) \\
+a \cos (\beta t)+b \sin (\beta t) \\
+n^{\text {th }} \text { degree polynomial } \\
+\hline 
+\end{array} $$
+We will begin solving this problem by noting the form of our solution: 
+
+$$ y(t) = y_c(t) + y_p(t). $$
+
+We will begin solving this as a homogenous equation. i.e. that $f(t)=0.$
+\subsubsection*{Finding $y_c(t)$:}
+To find $y_c(t)$, we will solve the following:
+
+$$ y^{\prime \prime}+2 y^{\prime}+11 y = 0 .$$
+
+Let's find the discriminant:
+$$ D = b^2 - 4ac\quad\implies \quad D =  (2)^2 - 4(1)(11) \quad\implies \quad D = -40 \quad\implies\quad D<0.$$
+Since $D<0$, our general solution is of the form:
+$$ y_c(t) = e^{\alpha t}\left[C_1\cos(\beta t) + C_2\sin(\beta t)\right]. $$
+Where $\alpha$ and $\beta$ come from the real and imaginary parts of the roots, respectively:
+$$ \lambda_{1,2} = \alpha \pm \beta i. $$
+Let's find $\lambda$ to write our complementary solution, $y_c(t)$.
+$$ \lambda_{1,2} = \frac{-b \pm \sqrt{D}}{2a} \quad\implies \quad \lambda_{1,2} = \frac{-2 \pm \sqrt{-40}}{2} \quad\implies \quad \lambda_{1,2} = -1 \pm i\sqrt{10}. $$
+$$ \lambda_{1,2} = -1 \pm i\sqrt{10} \quad\therefore\quad \underline{\alpha = -1 \quad\text{and}\quad \beta=\sqrt{10}.} $$
+Plugging these values into the general solution form, we have:
+$$\boxed{ y_c(t) = e^{-t}\left[C_1\cos{\left(t\sqrt{10}\right)} + C_2\sin{\left(t\sqrt{10}\right)}\right]. }$$
+Note that I've put the independent variable, $t$, ahead of its coefficient, $\sqrt{10}$, so that it's clear that it is outside the $\sqrt{\quad}$.\\
+
+Now that we have our complementary solution, $y_c(t)$, we can find our particular solution, $y_p(t)$, using a guess.
+\subsubsection*{Finding $y_p(t)$}
+To find our particular solution, we will first need to make a guess at what it should be. Here's a table for guesses based on $f(t)$:
+$$ \begin{array}{|c|c|}
+\hline f(t) & y_p(t) \text { guess } \\
+\hline a \mathbf{e}^{\beta t} & A \mathbf{e}^{\beta t} \\
+a \cos (\beta t) & A \cos (\beta t)+B \sin (\beta t) \\
+b \sin (\beta t) & A \cos (\beta t)+B \sin (\beta t) \\
+a \cos (\beta t)+b \sin (\beta t) & A \cos (\beta t)+B \sin (\beta t) \\
+n^{\text {th }} \text { degree polynomial } & A_n t^n+A_{n-1} t^{n-1}+\cdots A_1 t+A_0 \\
+\hline
+\end{array} $$
+
+For our problem we will use the guess $A\sin(\beta t) + B\cos(\beta t)$, where $\beta = 3.$\\
+Now, we will make a list of our guess, its first derivative, and it's second derivative:
+
+$$ y_p(t) \text{ guess} = A\sin(3t) + B\cos(3t), $$
+$$ y'_p(t) \text{ guess} = 3A\cos(3t) - 3B\sin(3t), $$
+$$ y''_p(t) \text{ guess} = -9A\sin(3t) - 9B\cos(3t). $$
+From here, we will run these through our differential equation by substituting on the LHS:
+\begin{enumerate}
+	\item $y''$ with $y''_p\text{ guess}$
+	\item $y'$ with $y'_p\text{ guess}$
+	\item $y$ with $y_p\text{ guess}$
+\end{enumerate}
+and putting $f(t)$ on the RHS of the equation.\\
+
+We do that here:
+$$ \bigg[-9A\sin(3t) - 9B\cos(3t)\bigg] + 2\bigg[3A\cos(3t) - 3B\sin(3t)\bigg] + 11\bigg[A\sin(3t) + B\cos(3t)\bigg] = \ldots$$
+$$...= 3\sin(3t) + 5\cos(3t)$$
+Here's a tip for not having to rewrite $\sin{(3t)}$ and $\cos{(3t)}$ a bunch and also for saving space: 
+$$\text{Let}\quad\sin{(3t)} = \mathbf{s} \quad\text{and}\quad \cos{(3t)} = \mathbf{c}.$$
+Rewriting what we had in a more compact and simpler form,
+$$ \big[-9A\mathbf{s} - 9B\mathbf{c}\big] + 2\big[3A\mathbf{c} - 3B\mathbf{s}\big] + 11\big[A\mathbf{s} + B\mathbf{c} \big] = 3\mathbf{s} + 5\mathbf{c}. $$
+Let's distribute!
+$$ -9A\mathbf s - 9B\mathbf c + 6A\mathbf c - 6B\mathbf s + 11A\mathbf s + 11B\mathbf c = 3\mathbf s + 5 \mathbf c . $$
+Now, we'll want to collect our like terms. An important note is that we are collecting terms based on $\mathbf s$ and $\mathbf c$.
+$$ [-9A-6B + 11A]\mathbf{s} + [-9B + 6A + 11B]\mathbf{c}  = 3\mathbf{s} + 5\mathbf{c}.$$
+Combining $A$'s and $B$'s for each of our terms:
+$$ [2A - 6B]\mathbf{s} + [6A + 2B]\mathbf{c} = 3\mathbf{s} + 5\mathbf{c}. $$
+From here, we will split our problem up as follows:
+$$ 2A - 6B = 3, $$
+$$ 6A + 2B = 5. $$
+Hopefully it is now clear why we wanted to collect like terms by $\mathbf{s}$ and $\mathbf{c}$ before collecting terms by $A$ and $B$. We now have two equations with two unknowns.\\
+
+From here we can use row-reduction of an augmented matrix to solve our system for $A$ and $B$ or we can use substitution.\\
+For those who haven't taken linear algebra, I'll use both methods.
+\subsubsection*{Finding $A$ and $B$ With Row Reduction}
+$$\begin{bmatrix}
+	2 & -6 & \vline & 3 \\
+	6 & 2  & \vline & 5
+\end{bmatrix} \quad \frac{R_1}{2} -\frac{R_2}{6} \rightarrow  R_2\quad 
+\begin{bmatrix} 
+	1 & -3 & \vline & 3/2 \\
+	0 & -10/3  & \vline & 4/6
+\end{bmatrix} \quad\rightarrow \ldots
+$$
+$$ \ldots R_1 - \frac{9}{10}R_1 \rightarrow  R_1 
+\begin{bmatrix} 
+	1 & 0 & \vline & 54/60 \\
+	0 & 3  & \vline & -36/60
+\end{bmatrix} \quad \frac{1}{3}R_2 \rightarrow  R_2
+\begin{bmatrix} 
+	1 & 0 & \vline & 9/10 \\
+	0 & 1  & \vline & -1/5
+\end{bmatrix}
+$$
+From this, we have that
+$$\boxed{ A = \frac{9}{10} \quad\text{ and }\quad B = -\frac{1}{5}.} $$
+\subsubsection*{Finding $A$ and $B$ With Substitution}
+To use the method of substitution, let's solve one of our equations:
+$$ 2A - 6B = 3 \quad \text{ or } \quad 6A + 2B = 5 $$
+for $A$ or $B$. Let's pick A in our first equation for no particular reason.
+$$ 2A - 6B = 3 \quad\implies \quad 2A = 3 + 6B \quad\implies \quad A = \frac{3 + 6B}{2}.$$
+Now, let's substitute this into our second equation, $6A + 2B = 5.$
+$$ 6\left[\frac{3 + 6B}{2}\right] + 2B = 5 \quad\implies \quad 3[3 + 6B] + 2B = 5 \quad\implies \quad 9 + 18B + 2B = 5 \quad\implies \ldots $$
+$$ \ldots\implies \quad 9 + 20B = 5 \quad\implies \quad B = -\frac{4}{20} \quad\implies\quad B = -\frac{1}{5}. $$
+Now, we plug our value for $B$ back into either equation to find $A$. Let's use the first one, $2A - 6B = 3$:
+$$ 2A - 6\left[-\frac{1}{5}\right] = 3 \quad\implies \quad 2A + \frac{6}{5} = 3 \quad\implies \quad 2A = \frac{15}{5} - \frac{6}{5} \quad\implies \quad A = \frac{15 - 6}{10} \quad\implies\ldots$$
+$$\ldots\implies \quad A = \frac{9}{10}. $$
+Once again, we have:
+$$  A = \frac{9}{10} \quad\text{ and }\quad B = -\frac{1}{5}. $$
+So, we have $A$ and $B$. From here, we plug them into our guess, $y_p(t) \text{ guess} = A\sin(3t) + B\cos(3t)$, yielding:
+$$ \boxed{y_p(t) = \frac{9}{10}\sin{(3t)} - \frac{1}{5}\cos{(3t).}} $$
+Let's be reminded of the complementary solution, $y_c(t)$, that we calculated earlier:
+$$  y_c(t) = e^{-t}\left[C_1\cos{\left(t\sqrt{10}\right)} + C_2\sin{\left(t\sqrt{10}\right)}\right].$$
+We know that our full general solution will be the sum of our complementary solution and our particular solution:
+$$ y(t) = y_c(t) + y_p(t). $$
+Let's combine the two to find our general solution for this tricky problem. Note that we will have a general solution because we have not yet solved for our constants: $C_1$ and $C_2$:
+$$ \boxed{y_g(t) = e^{-t}\left[C_1\cos{\left(t\sqrt{10}\right)} + C_2\sin{\left(t\sqrt{10}\right)}\right] +  \frac{9}{10}\sin{(3t)} -  \frac{1}{5}\cos{(3t).}} $$
+This is an important milestone, so we'll box it. We'll box and underline our final answer. \\
+
+At this point, we can solve for our constants using our initial conditions:
+$$ y(0) = 1 \quad ; \quad y'\left(0\right) = 2 $$
+let's first use our condition for $y(0) = 1$:
+$$ 1 = \underbrace{e^{0}}_1\bigg[C_1\underbrace{\cos(0)}_1 + \underbrace{C_2\sin(0)}_0\bigg] + \underbrace{\frac{9}{10}\sin{(0)}}_0 - \frac{1}{5}\underbrace{\cos{(0)}}_1 \quad\implies \ldots $$
+$$ \ldots\implies \quad C_1 -\frac{1}{5} = 1 \quad\implies\quad \underline{C_1 = \frac{6}{5}.}$$
+Now, here's the not-so-fun part. To use the initial condition, $y'(0)=2$, we will need to differentiate the general solution. When we do this, it's important to consider that $e^{-t}$ is being multiplied to $\left[C_1\cos{\left(t\sqrt{10}\right)} + C_2\sin{\left(t\sqrt{10}\right)}\right]$, which is also a function of $t$, so we will need to use the product rule:
+$$ \frac{d}{dt}[y_g(t)] = -e^{-t}\left[C_1\cos{\left(t\sqrt{10}\right)} + C_2\sin{\left(t\sqrt{10}\right)}\right] +$$
+$$e^{-t}\left[-C_1\sqrt{10}\sin{\left(t\sqrt{10}\right)} +C_2\sqrt{10}\cos{\left(t\sqrt{10}\right)}\right] +\frac{27}{10}\cos{(3t)} + \frac{3}{5}\sin{(3t)}. $$
+Now, with our derivative, we will use the initial condition: $y'(0) = 2$.
+$$ 2 = \underbrace{-e^{0}}_{-1}\bigg[C_1\underbrace{\cos(0)}_1 + \underbrace{C_2\sin(0)}_0\bigg] + \underbrace{e^{0}}_1\bigg[\underbrace{-C_1\sqrt{10}\sin(0)}_0 + C_2\sqrt{10}\underbrace{\cos(0)}_1\bigg] + \frac{27}{10}\underbrace{\cos(0)}_1 + \underbrace{\frac{3}{5}\sin(0)}_0, $$
+$$\ldots\implies \quad -C_1 + C_2\sqrt{10} + \frac{27}{10} = 2.$$
+Using the value for $C_1$ that we previously found: $C_1 = \frac{6}{5}$:
+$$ -\frac{6}{5} + C_2\sqrt{10} +\frac{27}{10} = 2 \quad\implies \quad C_2\sqrt{10} =\frac{20}{10} + \frac{12}{10} - \frac{27}{10} \quad\implies \quad \underline{C_2 = \frac{1}{2\sqrt{10}}.} $$
+Lastly, we will substitute $C_1 = \frac{6}{5}$ and $C_2 = \frac{1}{2\sqrt{10}}$ into our full general solution to obtain our specific solution.
+$$ \underline{\boxed{y_s(t) = e^{-t}\left[
+\frac{6}{5}\cos{\left(t\sqrt{10}\right)} + \frac{1}{2\sqrt{10}}\sin{\left(t\sqrt{10}\right)}\right] +  \frac{9}{10}\sin{(3t)} - \frac{1}{5}\cos{(3t).}}}$$
+This problem is likely the hardest that you could encounter for the method of Undetermined Coefficients in this class, so it seems fitting to include it with detailed solutions.
+
+\pagebreak
+
+\subsection*{Problem 2} Consider the following differential equation:
+$$ y'' + 4y = g(x). $$
+
+(a) Find the complementary solution to the differential equation.\\
+
+(b) Find the general solution if $g(x) = 2e^{5t}$.\\
+
+(c) Find the general solution if $g(x) = 3x^2 + 4x$.\\
+
+(d) Find the general solution if $g(x) = 4\cos(x) + 2\sin(2x)$.\\
+
+\vspace{.5in}
+ 
+Try it out before looking at the solution.
+\pagebreak
+ 
+ \subsubsection*{Solution to Problem 2:}
+
+\textbf{(a)}\\
+Let's begin by finding the complementary solution, which occurs when we let $g(x)$ = 0.
+$$ y'' + 4y = 0. $$
+Here, $a = 1$, $b=0$, $c=4$. Using these, let's find the discriminant to determine which of the three solution forms is correct.
+
+$$ D = b^2 - 4ac \quad\implies\quad D = -4 \quad\therefore\quad D<0.$$
+$$ y_c(x) = e^{-\alpha x}\bigg[C_1\cos{(\beta x) + C_2\sin{(\beta x)}}\bigg] \text{ for roots of the form } \lambda_{1,2} = \alpha \pm \beta i.$$
+
+Finding our roots,
+
+$$ \lambda_{1,2} = \frac{-b \pm \sqrt{D}}{2a} \quad\implies\quad \lambda_{1,2} = \frac{0 \pm \sqrt{-4}}{2} \quad\implies\quad \lambda_{1,2} = 0 \pm 2i\quad\therefore\quad \alpha = 0 \text{ and }\beta = \pm 2.$$
+Let's use the positive imaginary part of the root. We can now write the general complementary solution to this differential equation.
+
+$$ \underbrace{\underline{\boxed{y_c(x) = C_1\cos{(2x)} + C_2\sin{(2x)}}}}_{(a)} $$
+
+\textbf{(b)}\\
+We want to find the particular solution for the case where $g(x) = 2e^{5t}$. This inhomogeneity has the form of a function that we can use the method of Undetermined Coefficients on. Our guess will be:
+
+$$ y_{p_{\text{guess}}} = Ae^{5t}. $$
+$$ y_{p_{\text{guess}}}' = 5Ae^{5t}. $$
+$$ y_{p_{\text{guess}}}'' = 25Ae^{5t}. $$
+
+The next step is to plug this solution guess and its derivatives into our differential equation, yielding:
+
+$$ \left[25Ae^{5t}\right] + 4\left[Ae^{5t}\right] = 2e^{5t}. $$
+Let's group things by factoring out the common function, $e^{5t}$.
+$$ [25A + 4A]e^{5t} = 2e^{5t}. $$
+What does this say? This equation is a statement that, for some value of $A$, 29 $A$'s will be equal to 2. Let's consider this equation only.
+$$ 29A = 2 \quad\implies\quad A = \frac{2}{29}. $$
+We have just found the undetermined coefficient. Let's plug it into our particular solution guess to obtain our particular solution.
+$$ \boxed{y_p(x) = \frac{2}{29}e^{5t}} $$
+Our general solution is the combination of our complementary and our particular solution.
+$$ \underbrace{\underline{\boxed{y_{g}(x) = C_1\cos{(2x)} + C_2\sin{(2x)} + \frac{2}{29}e^{5t}}}}_{(b)} $$
+
+\textbf{(c)}\\
+To find the particular solution for the case where $g(x)=3 x^2+4 x$, we should first think about our differential equation. Our differential equation contains a second derivative and a first derivative, which means that when we differentiate our guess twice and zero times, there should appear a term with a power of 2 and 1 according to our function $g(x)$.\\
+
+If we choose a 2nd degree quadratic, that should work.
+$$ y_{p_{\text{guess}}} = Ax^2 + Bx + C. $$
+$$  y_{p_{\text{guess}}}' = 2Ax + B. $$
+$$  y_{p_{\text{guess}}}'' = 2A. $$
+Let's substitute our guess into our differential equation:
+$$ \left[2A\right] + 4\left[Ax^2 + Bx + C\right] = 3x^2 + 4x. $$
+Let's distribute and group our terms by $x^2$, $x$, and the constants.
+$$ [4A]x^2 + [4B]x + [2A + 4C] = 3x^2 + 4x. $$
+Here, we see that 4$A$'s need to equal 3 and 4$B$'s need to equal 4, but let's see what else happens:
+$$ 4A = 3 \quad\therefore\quad A = \frac{3}{4}. $$
+$$ 4B = 4 \quad\therefore\quad B = 1. $$
+$$ 2A + 4C = 0 \quad\implies\quad 2\left(\frac{3}{4}\right) = -4C \quad\therefore\quad C = -\frac{6}{16} \quad\implies\quad C = -\frac{3}{8}. $$
+That's interesting. Let's put these into our particular solution guess to obtain our particular solution.
+$$ y_{p} = \frac{3}{4}x^2 + x -\frac{3}{8}. $$
+Combining this with our complementary solution, we have our general solution:
+$$ \underbrace{\underline{\boxed{y_g(x) = C_1\cos{(2x)} + C_2\sin{(2x)} + \frac{3}{4}x^2 + x -\frac{3}{8}}}}_{(c)} $$
+\textbf{(d)}\\
+We have that $g(x)=4 \cos (x)+2 \sin (2 x)$. Now, whenever we come up with a guess we have to ensure that it is linearly independent from the solutions in our complementary solution. Can you spot the problem here?\\
+
+Well, for one, we will have to come up with a particular solution for the $4\cos{(x)}$ term. Let's call that $y_{p_{\text{guess}_1}}$:
+$$ y_{p_{\text{guess}_1}} = A\cos{(x)} + B\sin{(x)}.$$
+We also need a particular solution for the $2\sin{(2x)}$ term. We may be tempted to say:
+$$ \underbrace{y_{p_{\text{guess}_2}} = C\cos{(2x)} + D\sin{(2x)}}_{\text{WRONG}} $$
+\textbf{BUT THAT WOULD BE WRONG!} It's wrong because our complementary solution is:
+$$ y_{c}(x) = C_1\cos{(2x)} + C_{2}\sin{(2x)}. $$
+Notice that the second particular solution guess would collapse into the complementary solutions if $C = \frac{1}{C_1}$ and $D=\frac{1}{C_2}$. We need to add some term that guarantees linear independence. Let's throw an $x$ in there.
+$$ y_{p_{\text{guess}_2}} = x\bigg[C\cos{(2x)} + D\sin{(2x)}\bigg]. $$
+Let's work with our particular guesses one-at-a-time, starting with the first one:
+$$ y_{p_{\text{guess}_1}} = A\cos{(x)} + B\sin{(x)}. $$
+$$ y_{p_{\text{guess}_1}}' = -A\sin{(x)} + B\cos{(x)}. $$
+$$ y_{p_{\text{guess}_1}}'' = -A\cos{(x)} + -B\sin{(x)}. $$
+Let $\cos{(x)} = \textbf{c}_1$ for short and $\sin{(x)} = \textbf{s}_1$. This will save us a lot of writing the same thing over and over. We can plug this guess and its derivatives into our differential equation now.
+$$ [-A\textbf{c}_1 - B\textbf{s}_1] + 4[A\textbf{c}_1 + B\textbf{s}_1] = 4\textbf{c}_1 + 0\textbf{s}_1. $$
+Grouping by sines and cosines,
+$$ [-A + 4A]\textbf{c}_1 + [-B + 4B]\textbf{s}_1 = 4\textbf{c}_1 + 0\textbf{s}_1. $$
+$$ 3A = 4 \quad\therefore\quad A = \frac{4}{3}. $$
+$$ 3B = 0 \quad\therefore\quad B = 0. $$
+Now, we have that
+$$ \boxed{y_{p_1} = \frac{4}{3}\cos{(x)}} $$
+\pagebreak
+
+Let's continue with our second particular solution guess by finding its derivatives.
+$$ y_{p_{\text{guess}_2}} = x\bigg[C\cos{(2x)} + D\sin{(2x)}\bigg]. $$
+$$ y_{p_{\text{guess}_2}}' = \bigg[C\cos{(2x)} + D\sin{(2x)}\bigg] + x\bigg[-2C\sin{(2x)} + 2D\cos{(2x)}\bigg]. $$
+$$ y_{p_{\text{guess}_2}}'' = \bigg[-2C\sin{(2x)} + 2D\cos{(2x)}\bigg] + \bigg[-2C\sin{(2x)} + 2D\cos{(2x)}\bigg] +\ldots. $$
+$$ \ldots+x\bigg[-4C\cos{(2x)} - 4D\sin{(2x)}\bigg] $$
+Let's abbreviate our sines and cosines in a similar way to before. This time, we let $\cos{(2x)} = \textbf{c}_2$ and $\sin{(2x)} = \textbf{s}_2$. Plugging things into our differential equation,
+$$ \bigg(\big[-2C\textbf{s}_2 + 2D\textbf{c}_2\big] + \big[-2C\textbf{s}_2 + 2D\textbf{c}_2\big] + x\big[-4C\textbf{c}_2 - 4D\textbf{s}_2\big]  \bigg) + 4\bigg(x\big[C\textbf{c}_2 + D\textbf{s}_2\big]\bigg) = 0\textbf{c}_2 + 2\textbf{s}_2. $$
+Let's group like terms in the second derivative's term.
+$$ \bigg(\big[-4C\textbf{s}_2 + 4D\textbf{c}_2\big] + x\big[-4C\textbf{c}_2 - 4D\textbf{s}_2\big]\bigg) + \bigg(x\big[4C\textbf{c}_2 + 4D\textbf{s}_2\big]\bigg) = 0\textbf{c}_2 + 2\textbf{s}_2 .$$
+Notice how the $x$ stuff cancels, that's cool.
+$$ -4C\textbf{s}_2 + 4D\textbf{c}_2 = 0\textbf{c}_2 + 2\textbf{s}_2. $$
+$$ -4C = 2 \quad\therefore\quad C = -\frac{1}{2}. $$
+$$ 4D = 0 \quad\therefore\quad D = 0. $$
+We've determined our coefficients, so let's put them into our particular solution guess to obtain our particular solution.
+$$ y_{p_2} = x\bigg[-\frac{1}{2}\cos{(2x)} + 0\bigg]. $$
+$$ \boxed{y_{p_2} = -\frac{x}{2}\cos{(2x)}} $$
+With our two particular solutions, we can combine them like power rangers into one big particular solution.
+$$ \boxed{y_p(x) = \frac{4}{3}\cos{(x)} - \frac{x}{2}\cos{(2x)}} $$
+Once again, to get our full general solution we can mash together the particular solution with the complementary solution.
+$$ \underbrace{\underline{\boxed{y_g(x) = C_1\cos{(2x)} + C_{2}\sin{(2x)} + \frac{4}{3}\cos{(x)} - \frac{x}{2}\cos{(2x)}}}}_{(d)}$$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,189 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1. Document Class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+ % The first command you will always have will declare your document class. This tells LaTeX what type of document you are creating (article, presentation, poster, etc). 
+% \documentclass is the command
+% in {} you specify the type of document
+% in [] you define additional parameters
+ 
+\documentclass[a4paper,12pt]{article} % This defines the style of your paper
+
+% We usually use the article type. The additional parameters are the format of the paper you want to print it on and the standard font size. For us this is a4paper and 12pt.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 2. Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Packages are libraries of commands that LaTeX can call when compiling the document. With the specialized commands you can customize the formatting of your document.
+% If the packages we call are not installed yet, TeXworks will ask you to install the necessary packages while compiling.
+
+% First, we usually want to set the margins of our document. For this we use the package geometry. We call the package with the \usepackage command. The package goes in the {}, the parameters again go into the [].
+\usepackage[top = 2.5cm, bottom = 2.5cm, left = 2.5cm, right = 2.5cm]{geometry} 
+
+% Unfortunately, LaTeX has a hard time interpreting German Umlaute. The following two lines and packages should help. If it doesn't work for you please let me know.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{cancel}
+\usepackage{amssymb}
+
+\usepackage{pgfplots}
+
+
+% The following two packages - multirow and booktabs - are needed to create nice looking tables.
+\usepackage{multirow} % Multirow is for tables with multiple rows within one cell.
+\usepackage{booktabs} % For even nicer tables.
+
+% As we usually want to include some plots (.pdf files) we need a package for that.
+\usepackage{graphicx} 
+
+% The default setting of LaTeX is to indent new paragraphs. This is useful for articles. But not really nice for homework problem sets. The following command sets the indent to 0.
+\usepackage{setspace}
+\setlength{\parindent}{0in}
+
+% Package to place figures where you want them.
+\usepackage{float}
+
+% The fancyhdr package let's us create nice headers.
+\usepackage{fancyhdr}
+
+% Citing references will be hyperlinked and blue
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+
+\usepackage{amsmath}
+
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 3. Header (and Footer)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% To make our document nice we want a header and number the pages in the footer.
+
+\pagestyle{fancy} % With this command we can customize the header style.
+
+\fancyhf{} % This makes sure we do not have other information in our header or footer.
+
+\lhead{\footnotesize }% \lhead puts text in the top left corner. \footnotesize sets our font to a smaller size.
+
+%\rhead works just like \lhead (you can also use \chead)
+\rhead{\footnotesize Collins \thepage} %<---- Fill in your lastnames.
+
+% Similar commands work for the footer (\lfoot, \cfoot and \rfoot).
+% We want to put our page number in the center.
+\cfoot{\footnotesize} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 4. Your document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Now, you need to tell LaTeX where your document starts. We do this with the \begin{document} command.
+% Like brackets every \begin{} command needs a corresponding \end{} command. We come back to this later.
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title section of the document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% For the title section we want to reproduce the title section of the Problem Set and add your names.
+
+\thispagestyle{empty} % This command disables the header on the first page. 
+
+\begin{tabular}{p{15.5cm}} % This is a simple tabular environment to align your text nicely 
+\\ Collin Collins \\
+MATH 3400\\
+SI Session 7 Practice Problems and Solutions\\
+19 March 2024 \\
+\hline % \hline produces horizontal lines.
+
+\end{tabular} 
+
+\subsection*{Problem 1} 
+Find the general solution using Variation of Parameters.
+$$ y''-4y' = e^{ex}. $$
+\\
+ 
+Try it out before looking at the solution
+\pagebreak
+
+\subsubsection*{Solution to Problem 1:}
+Taking a look at the form of our differential equation, we have what appears to be a 2nd order linear, non-homogenous, differential equation. So far we know that for non-homogenous, 2nd order, linear, differential equations, we can use the method of Undetermined Coefficients or Variation of Parameters. We are told to use the latter, so let's begin.\\
+
+We'll remember some important information for this method.\\
+
+I'm going to assume that it is clear that $\mu_{1,2}$ and $y_{1,2}$ along with any composition of these two are all functions of our independent variable, $x$.\\
+
+With this assumption, we can write what we need to remember in a concise and easy to remember way.
+\begin{equation}
+	y(x) = y_c + y_p. \label{eq:1}
+\end{equation}
+\begin{equation}
+	y_c = C_1y_1 + C_2y_2  \quad \text{and}\quad y_p = \mu_1y_1 + \mu_2y_2. \label{eq:2}
+\end{equation}
+\begin{equation}
+	\mu_1 = -\int \frac{y_2f(x)}{\mathrm{W}[y_1,y_2]}dx \quad\text{and} \quad \mu_2 = \int \frac{y_1f(x)}{\mathrm{W}[y_1,y_2]}dx. \label{eq:3}
+\end{equation}
+One quick note. $\mathrm{W}[y_1,y_2]$ is the Wronskian of $y_1$ and $y_2$. It looks like this:
+\begin{equation}
+	\mathrm{W}[y_1,y_2] = \left|\begin{matrix}
+	y_1 & y_2 \\
+	y_1' & y_2'
+\end{matrix}\right| = y_1y_2' - y_1'y_2. \label{eq:4}
+\end{equation}
+Okay, let's put everything in one equation:
+$$ \boxed{y(x) = C_1y_1 + C_2y_2 -y_1\int \frac{y_2f(x)}{\mathrm{W}[y_1,y_2]}dx + y_2 \int \frac{y_1f(x)}{\mathrm{W}[y_1,y_2]}dx.} $$
+Now, this is a lot. We shouldn't try to memorize this whole thing.\\
+
+Let's go through solving the problem that we were given to familiarize ourselves with Equations (\ref{eq:1}-\ref{eq:4})\\
+
+We will start by finding the complementary solution, $y_c=C_1 y_1+C_2 y_2$ by solving our differential equation as if $f(x)=0$.
+$$ y''-4y' = 0. $$
+Finding our discriminant:
+$$ D = (-4)^2 - 4(1)(0) \implies D = 16 \implies D>0. $$
+Since $D>0$ our complimentary solution will be of the form:
+$$ y_c = C_1e^{\lambda_1x} + C_2e^{\lambda_2x} \quad\text{where}\quad \lambda_{1,2} = \frac{-b \pm \sqrt{D}}{2a}. $$
+$$ \lambda_{1,2} = \frac{4 \pm 4}{2} \implies \lambda_1 = 4 \quad\text{and}\quad \lambda_2 = 0. $$
+Plugging these values of $\lambda$ into our complimentary solution, we have:
+$$ \boxed{y_c = C_1\underbrace{e^{4x}}_{y_1} + C_2\underbrace{(1)}_{y_2}} $$
+Now that we have our complimentary solution, let's start finding our particular solution, $y_p$, which is:
+$$ y_p = \mu_1y_1 + \mu_2y_2. $$
+We can immediately plug in our values for $y_1$ and $y_2$:
+$$ y_p = \mu_1e^{4x} + \mu_2. $$
+From here, let's remember our expressions for $\mu_1$ and $\mu_2$:
+$$ \mu_1 = -\int \frac{y_2f(x)}{\mathrm{W[y_1,y_2]}} \quad \text{and} \quad \mu_2 = \int \frac{y_1f(x)}{\mathrm{W}[y_1,y_2]} .$$
+Let's find the Wronskian of $y_1$ and $y_2$:
+$$ \mathrm{W}[y_1,y_2] = \left|\begin{matrix}
+	y_1 & y_2 \\
+	y_1' & y_2'
+\end{matrix}\right| \implies \mathrm{W}\left[e^{4x}, 1\right] = \left|\begin{matrix}
+	e^{4x} & 1 \\
+	4e^{4x} & 0
+\end{matrix}\right| = e^{4t}(0) - 4e^{4x}(1) \implies \boxed{\mathrm{W}\left[e^{4x}, 1\right] = -4e^{4x}}$$
+If $f(x) = e^{ex}$, then we can substitute all of our known values into the integrals for $\mu_1$ and $\mu_2$.
+$$ \mu_1 = -\int \frac{e^{ex}}{-4e^{4x}}dx \quad\text{and}\quad \mu_2 = \int \frac{e^{4x}e^{ex}}{-4e^{4x}}dx.$$
+Let's use exponent rules and pull out constants to simplify these integrals:
+$$ \mu_1 = \frac{1}{4} \int e^{ex - 4x}dx \quad\text{and}\quad \mu_2 = -\frac{1}{4}\int e^{4x + ex - 4x} dx. $$
+Simplifying our exponents further, we have:
+$$ \mu_1 = \frac{1}{4}\int e^{(e-4)x}dx \quad\text{and}\quad \mu_2 = -\frac{1}{4}\int e^{ex}dx.  $$
+Finally, evaluating these integrals, we have:
+$$ \mu_1 = \frac{1}{\underbrace{4e-16}_{\text{came from }4(e-4)}}e^{(e-4)x} \quad\text{and}\quad \mu_2 = -\frac{1}{4e} e^{ex}  $$
+We can take the almost complete particular solution that we had earlier: $y_p = \mu_1 e^{4x} + \mu_2$, and plug in our values for $\mu_{1,2}$.
+$$ y_p = \left[\frac{e^{(e-4)x}}{4e-16}\right]e^{4x} - \frac{e^{ex}}{4e} $$
+Simplifying the first term,
+$$ \boxed{y_p = \frac{e^{ex}}{4e-16} - \frac{e^{ex}}{4e}} $$
+We can stop here if we'd like. There's no need to get any more simplified than this, unless we have a good reason to.\\
+
+At this point, we will remember Equation (\ref{eq:1}):
+$$ y(x) = y_c + y_p. $$
+With our complementary and particular solutions, we can write our general solution.
+$$ \underline{\boxed{y_g(x) = \underbrace{C_1e^{4x} + C_2}_{y_c} + \underbrace{\frac{e^{ex}}{4e-16} - \frac{e^{ex}}{4e}}_{y_p}}} $$
+
+\end{document}

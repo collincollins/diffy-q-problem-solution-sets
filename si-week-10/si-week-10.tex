@@ -1,0 +1,234 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1. Document Class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+ % The first command you will always have will declare your document class. This tells LaTeX what type of document you are creating (article, presentation, poster, etc). 
+% \documentclass is the command
+% in {} you specify the type of document
+% in [] you define additional parameters
+ 
+\documentclass[a4paper,12pt]{article} % This defines the style of your paper
+
+% We usually use the article type. The additional parameters are the format of the paper you want to print it on and the standard font size. For us this is a4paper and 12pt.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 2. Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Packages are libraries of commands that LaTeX can call when compiling the document. With the specialized commands you can customize the formatting of your document.
+% If the packages we call are not installed yet, TeXworks will ask you to install the necessary packages while compiling.
+
+% First, we usually want to set the margins of our document. For this we use the package geometry. We call the package with the \usepackage command. The package goes in the {}, the parameters again go into the [].
+\usepackage[top = 2.5cm, bottom = 2.5cm, left = 2.5cm, right = 2.5cm]{geometry} 
+
+% Unfortunately, LaTeX has a hard time interpreting German Umlaute. The following two lines and packages should help. If it doesn't work for you please let me know.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{cancel}
+\usepackage{amssymb}
+
+\usepackage{pgfplots}
+
+
+% The following two packages - multirow and booktabs - are needed to create nice looking tables.
+\usepackage{multirow} % Multirow is for tables with multiple rows within one cell.
+\usepackage{booktabs} % For even nicer tables.
+
+% As we usually want to include some plots (.pdf files) we need a package for that.
+\usepackage{graphicx} 
+
+% The default setting of LaTeX is to indent new paragraphs. This is useful for articles. But not really nice for homework problem sets. The following command sets the indent to 0.
+\usepackage{setspace}
+\setlength{\parindent}{0in}
+
+% Package to place figures where you want them.
+\usepackage{float}
+
+% The fancyhdr package let's us create nice headers.
+\usepackage{fancyhdr}
+
+% Citing references will be hyperlinked and blue
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+
+\usepackage{amsmath}
+
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 3. Header (and Footer)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% To make our document nice we want a header and number the pages in the footer.
+
+\pagestyle{fancy} % With this command we can customize the header style.
+
+\fancyhf{} % This makes sure we do not have other information in our header or footer.
+
+\lhead{\footnotesize }% \lhead puts text in the top left corner. \footnotesize sets our font to a smaller size.
+
+%\rhead works just like \lhead (you can also use \chead)
+\rhead{\footnotesize Collins \thepage} %<---- Fill in your lastnames.
+
+% Similar commands work for the footer (\lfoot, \cfoot and \rfoot).
+% We want to put our page number in the center.
+\cfoot{\footnotesize} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 4. Your document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Now, you need to tell LaTeX where your document starts. We do this with the \begin{document} command.
+% Like brackets every \begin{} command needs a corresponding \end{} command. We come back to this later.
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title section of the document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% For the title section we want to reproduce the title section of the Problem Set and add your names.
+
+\thispagestyle{empty} % This command disables the header on the first page. 
+
+\begin{tabular}{p{15.5cm}} % This is a simple tabular environment to align your text nicely 
+\\ Collin Collins \\
+MATH 3400\\
+SI Session 10 Practice Problems and Solutions\\
+15 April 2024 \\
+\hline % \hline produces horizontal lines.
+
+\end{tabular} 
+
+\subsection*{Problem 1} Find $y_s(x)$ using the Laplace transform solution technique for the following IVP.
+$$5y^{\prime \prime}+ 10y= \delta(t-6) \quad ; \quad y(0)=y'(0)=0 . $$
+\\
+ 
+Try it out before looking at the solution.
+\pagebreak
+ 
+\subsubsection*{Solution to Problem 1:}
+
+Below are some important Laplace transforms to remember:
+
+\begin{table}[ht!]
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{| c | c |}
+\hline
+$y(t)$ & $Y(s)$ \\
+\hline
+$y'(t)$ & $sY(s) - y(0)$ \\
+\hline
+$y''(t)$ & $s^2Y(s) - sy(0) - y'(0)$ \\
+\hline
+$1$ & $\displaystyle\frac{1}{s}$ \\
+\hline
+$t^n$ & $\displaystyle\frac{n!}{s^{n+1}}$ \\
+\hline
+$e^{at}$ & $\displaystyle\frac{1}{s-a}$ \\
+\hline
+$\sin{(at)}$ & $\displaystyle\frac{a}{s^2 + a^2}$ \\
+\hline
+$\cos{(at)}$ & $\displaystyle\frac{s}{s^2 + a^2}$ \\
+\hline
+$\mu_{a}(t)$ & $\displaystyle\frac{e^{-as}}{s}$ \\
+\hline
+$\delta(t-a)$ & $e^{-as}$ \\
+\hline
+$(f \star g)(t)$ & $F(s)G(s)$ \\
+\hline
+\end{tabular}
+\end{center}
+\caption{The most important Laplace transforms. Note the taking the Laplace transform means going from left to right. Taking the inverse Laplace transform means going from right to left.}
+\label{table}
+\end{table}
+
+ Here are two definitions that are essential for this solution technique:
+ 
+\begin{equation}
+  \mathcal{L}\left\{f(t)\right\} \triangleq \int_{0}^{\infty}f(t)e^{-st}dt.
+\end{equation}
+\begin{equation}
+	(f\star g)(t) \triangleq \int_{0}^{t}f(\tau)g(t-\tau)d\tau. \label{convolution}
+\end{equation}
+We can start off by taking the Laplace transform of both sides of our differential equation:
+
+$$ \mathcal{L}\left\{5y'' + 10y\right\} = \mathcal{L}\left\{\delta(t-6)\right\}. $$
+Since the Laplace transform is a linear operator, we can separate by plus and minus signs and pull out constants:
+$$ 5\mathcal{L}\left\{y''\right\} + 10\mathcal{L}\left\{y\right\} = \mathcal{L}\left\{\delta(t-6)\right\}. $$
+Using our known Laplace transforms, we go from the $t$ domain to the $s$ domain by performing the Laplace transform operation of each of our arguments.
+$$ 5[s^2Y - sy(0) - y'(0)] + 10[Y] = e^{-6s}. $$
+The Laplace transform turns a differential equation into a simple equation, we use algebra to solve for our function in the $s$ domain, $Y(s)$. The last step is to translate our function into the $t$ domain, $y(t)$.\\
+
+Let's start off by using our initial conditions and solving for $Y(s)$:
+$$ 5s^2Y + 10Y = e^{-6s} \quad\implies\quad Y(s) = \frac{e^{-6s}}{5s^2 + 10}. $$
+The last step is to take in the inverse Laplace transform of both sides.
+$$ \mathcal{L}^{-1}\left\{Y(s)\right\} = \mathcal{L}^{-1}\left\{\frac{e^{-6s}}{5s^2 + 10}\right\} \quad\implies\quad y(t) = \mathcal{L}^{-1}\left\{\frac{e^{-6s}}{5s^2 + 10}\right\}. $$
+At this point, we see if what we are taking the inverse Laplace transform of matches the form of anything that we know. Directly, it doesn't. Just like taking derivatives and integrals of the product of two functions means that we have to use \textit{fancy} multiplication (product rule and integration by parts, respectively), when we want to take the inverse Laplace transform of the product of two functions of $s$, we use convolution.\\
+
+We known how to take the inverse Laplace transform of the product of two functions of $s$. That can be seen in our table above:
+$$ \mathcal{L}\left\{(f\star g)(t)\right\} = F(s)G(s) \quad\therefore\quad \mathcal{L}^{-1}\left\{F(s)G(s)\right\} = (f\star g)(t), $$
+where $f$ convolved with $g$ is given in Definition [\ref{convolution}] as:
+$$ (f\star g)(t) \triangleq \int_{0}^{t}f(\tau)g(t-\tau)d\tau.  $$
+What we need to do now is to find a way to express $\frac{e^{-6s}}{5s^2 + 10}$ as the product of two functions of $s$ (both of which have the form of a Laplace transform that we are familiar with).
+$$ \text{Let}: \quad A(s) \triangleq e^{-6s} \quad\text{and} \quad B(s)\triangleq\frac{1}{5s^2 + 10}. $$
+We now have:
+$$ y(t) = \mathcal{L}^{-1}\left\{A(s)B(s)\right\}. $$
+Taking this inverse Laplace transform means that we will be convolving $a(t)$ with $b(t)$. To do this, we first need to know what $a(t)$ and $b(t)$ are.
+$$ A(s) = e^{-6s} \quad\therefore\quad a(t) = \mathcal{L}^{-1}\left\{e^{-6s}\right\} \quad\implies\quad \boxed{a(t) = \delta(t-6)} $$
+$$ B(s) = \frac{1}{5s^2 + 10} \quad\therefore\quad b(t) = \mathcal{L}^{-1}\left\{\frac{1}{5s^2 + 10}\right\} \quad... $$
+Here, we see that $B(s)$ is most similar to the Laplace transform of $\sin{(at)}$. What we need to do is manipulate $B(s)$ until it is exactly in the form of the Laplace transform of $\sin{(at)}$. Let's start off by pulling out an extra factor of 5 in the denominator.
+$$ b(t) = \frac{1}{5}\mathcal{L}^{-1}\left\{\frac{1}{s^2 + 2}\right\}. $$
+Notice that the Laplace transform of $\sin{(at)}$ has an $a$ in the numerator and an $a^2$ in the denominator. How do we write 2 as the square of a number?
+$$ b(t) = \frac{1}{5}\mathcal{L}^{-1}\left\{\frac{1}{s^2 + (\sqrt{2})^2}\right\}.  $$
+Now, to force a factor of $a=\sqrt{2}$ in the numerator we can multiply by $\frac{\sqrt{2}}{\sqrt{2}}$ and pull the $\frac{1}{\sqrt{2}}$ outside:
+$$ b(t) = \frac{1}{5}\mathcal{L}^{-1}\left\{\left(\frac{\sqrt{2}}{\sqrt{2}}\right)\frac{1}{s^2 + (\sqrt{2})^2}\right\} \quad\implies\quad b(t) = \frac{1}{5\sqrt(2)}\mathcal{L}^{-1}\left\{\frac{\sqrt2}{s^2 + (\sqrt2)^2}\right\}.$$
+Making these alterations lets us take this inverse Laplace transform based on our known transformations in Table [\ref{table}] :
+$$ \boxed{b(t) = \frac{1}{5\sqrt{2}}\sin{(t\sqrt{2})}} $$
+Since we know $a(t)$ and $b(t)$, we can perform the convolution operation:
+$$ y(t) = (a\star b)(t) = \frac{1}{5\sqrt{2}}\int_{0}^{t} \delta(\tau-6)\sin{\big((t-\tau)\sqrt{2}\big)}d\tau. $$
+This convolution integral will replace all $\tau$'s with $t$'s when we evaluate the integral at each bound. Since the integral is definite, there will be no arbitrary constants. This is, therefore, our specific solution:
+$$ \underline{\boxed{\frac{1}{5\sqrt{2}}\int_{0}^{t} \delta(\tau-6)\sin{\big((t-\tau)\sqrt{2}\big)}d\tau}} $$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+

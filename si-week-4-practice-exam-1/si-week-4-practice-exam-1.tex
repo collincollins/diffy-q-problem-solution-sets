@@ -1,0 +1,462 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1. Document Class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+ % The first command you will always have will declare your document class. This tells LaTeX what type of document you are creating (article, presentation, poster, etc). 
+% \documentclass is the command
+% in {} you specify the type of document
+% in [] you define additional parameters
+ 
+\documentclass[a4paper,12pt]{article} % This defines the style of your paper
+
+% We usually use the article type. The additional parameters are the format of the paper you want to print it on and the standard font size. For us this is a4paper and 12pt.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 2. Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Packages are libraries of commands that LaTeX can call when compiling the document. With the specialized commands you can customize the formatting of your document.
+% If the packages we call are not installed yet, TeXworks will ask you to install the necessary packages while compiling.
+
+% First, we usually want to set the margins of our document. For this we use the package geometry. We call the package with the \usepackage command. The package goes in the {}, the parameters again go into the [].
+\usepackage[top = 2.5cm, bottom = 2.5cm, left = 2.5cm, right = 2.5cm]{geometry} 
+
+% Unfortunately, LaTeX has a hard time interpreting German Umlaute. The following two lines and packages should help. If it doesn't work for you please let me know.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{cancel}
+\usepackage{amssymb}
+
+% The following two packages - multirow and booktabs - are needed to create nice looking tables.
+\usepackage{multirow} % Multirow is for tables with multiple rows within one cell.
+\usepackage{booktabs} % For even nicer tables.
+
+% As we usually want to include some plots (.pdf files) we need a package for that.
+\usepackage{graphicx} 
+
+% The default setting of LaTeX is to indent new paragraphs. This is useful for articles. But not really nice for homework problem sets. The following command sets the indent to 0.
+\usepackage{setspace}
+\setlength{\parindent}{0in}
+
+% Package to place figures where you want them.
+\usepackage{float}
+
+% The fancyhdr package let's us create nice headers.
+\usepackage{fancyhdr}
+
+% Citing references will be hyperlinked and blue
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+
+\usepackage{amsmath}
+
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 3. Header (and Footer)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% To make our document nice we want a header and number the pages in the footer.
+
+\pagestyle{fancy} % With this command we can customize the header style.
+
+\fancyhf{} % This makes sure we do not have other information in our header or footer.
+
+\lhead{\footnotesize }% \lhead puts text in the top left corner. \footnotesize sets our font to a smaller size.
+
+%\rhead works just like \lhead (you can also use \chead)
+\rhead{\footnotesize Collins \thepage} %<---- Fill in your lastnames.
+
+% Similar commands work for the footer (\lfoot, \cfoot and \rfoot).
+% We want to put our page number in the center.
+\cfoot{\footnotesize} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 4. Your document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Now, you need to tell LaTeX where your document starts. We do this with the \begin{document} command.
+% Like brackets every \begin{} command needs a corresponding \end{} command. We come back to this later.
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title section of the document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% For the title section we want to reproduce the title section of the Problem Set and add your names.
+
+\thispagestyle{empty} % This command disables the header on the first page. 
+
+\begin{tabular}{p{15.5cm}} % This is a simple tabular environment to align your text nicely 
+\\ Collin Collins \\
+MATH 3400\\
+SI Session 4 Exam 1 Review\\
+8 February 2024 \\
+\hline % \hline produces horizontal lines.
+
+\end{tabular} 
+
+\subsection*{Problem 1.}
+
+Find the solution of the following IVP and verify that the solution solves the differential equation.
+$$ y^{\prime}+3 x^2 y=x^2 \quad;\quad y(0) = \frac{4}{3}. $$
+
+Try it out before looking at the solution.
+
+\pagebreak
+
+\subsection*{Solution to 1.}
+We first profile this differential equation to determine the solution technique required to solve it.\\
+
+This is not autonomous since our derivative depends on our independent variable.\\
+
+Let's check if it's separable:
+
+$$ y' + 3x^2y = x^2 \quad\implies\quad y' = x^2 - 3x^2y \quad\implies\quad  y'=\underbrace{x^2}_{h(x)}\underbrace{(1-3y)}_{g(y)}. $$
+
+It is separable, but as you may have noticed, it's also FOL because it has the form of $y' + p(x)y = f(x)$. As a note, if we aren't told what solution method to use and there are multiple techniques that we could use, then I like to use the easiest one. In most every case, separation of variables is easier than FOL.
+$$ \frac{dy}{dx} = x^2 (1-3y) \quad\implies\quad \frac{dy}{1-3y} = x^2 dx \quad\overset{\int}\implies\quad -\frac{1}{3}\ln{|1-3y|} = \frac{x^3}{3} + C \quad\implies\ldots $$
+$$ \ldots\implies\quad \ln{|1-3y|} = -x^3 + C_2 \quad\implies\quad 1-3y = e^{-x^3 + C_2} \quad\implies\ldots$$
+$$ \ldots\implies\quad -3y = Ae^{-x^3} - 1 \quad\implies\quad \boxed{y_g = Be^{-x^3} + \frac{1}{3}} $$
+Now, we can use our initial condition $(0, \frac{4}{3})$ to find the specific solution:
+$$ \left(0, \frac{4}{3}\right)\quad:\quad \frac{4}{3} = Be^{0} + \frac{1}{3} \quad\implies\quad \frac{4-1}{3} = B \quad\implies\quad B=1. $$
+$$ \therefore\quad \boxed{y_s = e^{-x^3} + \frac{1}{3}} $$
+With the solution to the differential equation, we can now verify that it is indeed a solution to our equation: $y' +3x^2y = x^2$.
+$$ y' = \frac{d}{dx}\left[y_s\right] \quad\implies\quad \underline{y' = -3x^2e^{-x^3}}. $$
+Plugging this, along with $y_s$ into our original differential equation:
+$$ \left[-3x^2e^{-x^3}\right] + 3x^2\left[e^{-x^3} + \frac{1}{3}\right] = x^2 \quad\implies\quad (-3x^2e^{-x^3} + 3x^2e^{-x^3}) + x^2 = x^2 \quad\implies\ldots$$
+$$ \ldots\implies\quad 0 + x^2 = x^2 \quad\implies\quad \underline{\boxed{x^2=x^2 \quad\therefore\quad {\text{$y_s = e^{-x^3} + \frac{1}{3}$ is indeed a solution.}}}} $$
+This statement is true for all $x$, meaning our solution satisfies the differential equation.
+
+\subsection*{Problem 2.} 
+Sketch a phase diagram with arrows on the number line provided and answer the questions regarding the following differential equation:
+$$ y^{\prime} = (-y+1)^2(y^2-y-6). $$
+(a) What type of differential equation is this and why?\\
+(b) Find the critical points and describe the equilibrium solutions.\\
+(c) Draw a phase line for the differential equation.\\
+(d) What is the stability of each solution?\\
+(e) Determine the limits below, for a solution with initial condition $y(0)=-\frac{3}{4}$.
+$$
+\begin{aligned}
+& \lim _{t \rightarrow \infty} y(t)=  \quad\quad\quad\quad \lim _{t \rightarrow-\infty} y(t)=
+\end{aligned}
+$$\\
+\\
+\\
+\\
+\\
+\\
+
+$$ ----------------------------- \quad y $$
+\pagebreak
+
+\subsubsection*{Solution to 2:}
+\textbf{(a)} The differential equation is an autonomous equation because it lacks dependance on the independent variable, $t$.\\
+
+\textbf{(b)} The equilibrium solutions occur when $y^{\prime}$ = 0, which occurs when any of the factors of this differential equation are equal to zero. These roots are clear when the autonomous equation is in a factored form, so let's factor the quadratic on the right:
+$$ y^{\prime} = (-y+1)^2\underbrace{(y^2-y-6)}_{(y - 3)(y + 2)}. $$
+By the zero-product property, $y' = 0$ at the critical points of $y = 1$ with a multiplicity of 2 and $y=3, -2$.\\
+
+The equilibrium solutions of the differential equation are:
+$$ \underline{\boxed{y_a(t) = 1 \text{ with a multiplicity of 2} \quad;\quad y_b(t) = 3 \quad;\quad y_c(t) = -2}}$$
+\textbf{(c)} We can draw a phase line for the differential equation by labelling the critical points (the roots) on a number line and performing a sign diagram analysis by choosing any $y$ value around the critical points and determining the sign of $y^{\prime}$:\\
+$$\underbrace{---}_{(-\infty, -2)}(-2)\underbrace{-----}_{(-2, 1)}(1)\underbrace{------}_{(1,3)}(3)\underbrace{---}_{(3, \infty)}\quad y $$
+
+We will determine the sign of $y'$ in each interval to add our arrows:
+
+$$ (-\infty, -2)\quad\overset{y=-3}\implies\quad y' = \underbrace{(-[-3] + 1)^2}_{+}\underbrace{([-3]-3)}_{-}\underbrace{([-3]+2)}_{-} \quad\implies y' > 0 \text{ for }y\in(-\infty, -2). $$
+$$ (-2, 1) \quad\overset{y=0}\implies\quad y' = \underbrace{(-[0]+1)^2}_{+}\underbrace{([0]-3)}_{-}\underbrace{([0]+2)}_{+} \quad\implies\quad y'<0 \text{ for } y\in (-2,1). $$
+$$ (1,3) \quad\overset{y=2}\implies\quad y' = \underbrace{(-[2]+1)^2}_{+}\underbrace{([2]-3)}_{-}\underbrace{([2]+2)}_{+} \quad\implies\quad y'<0 \text{ for } y \in (1,3).  $$
+$$ (3,\infty) \quad\overset{y=4}\implies\quad y' = \underbrace{(-[4]+1)^2}_{+}\underbrace{([4]-3)}_{+}\underbrace{([4]+2)}_{+} \quad\implies\quad y'>0 \text{ for }y \in (3,\infty). $$
+
+With our signs, let's make our sign diagram on top of our number line:
+$$ \underbrace{---}_{+}(-2)\underbrace{-----}_{-}(1)\underbrace{------}_{-}(3)\underbrace{---}_{+}\quad y $$
+Since the $y$-axis is the horizontal, if the derivative sign is negative, it will point towards the decreasing $y$ direction and if the derivative sign is positive, it will point towards the increasing $y$ direction:
+$$\underline{\boxed{ ->--(-2)--<--(1)--<--(3)-->- \quad y}}$$
+\pagebreak
+
+\textbf{(d)} From the diagram above, we see that:
+$$ \underline{\boxed{y_a(t) =1 \text{ is a saddle, which is semistable (unstable).}}} $$
+$$ \underline{\boxed{y_b(t) =3 \text{ is a source, which is unstable.}}} $$
+
+$$\underline{\boxed{y_c(t) =-2 \text{ is a sink, which is stable.}}} $$
+
+\textbf{(e)} We have an initial condition that is $-\frac{3}{4}$ at $t=0$. Let's think about what would happen if we ran the clock forward and followed our arrows. If we were to place this point on our number line and let it move with the arrows, it would be between $y=1$ and $y=-2$. The arrow pushes it towards the stable point of $y=-2$ where it stays forever. In math:
+$$ \underline{\boxed{\text{For $y(0)=-\frac{3}{4}$}\quad :\quad \lim_{t\to \infty} y(t) = -2}} $$
+Now, if we were to run the clock backwards, we would place our point $y=-\frac{3}{4}$ on the number line again, but this time we will ask where it came from. We can follow the arrow all the way back to the saddle point at $y=1$. It will remain there since a saddle is half of a source and half of a sink. Putting this in math:
+$$ \underline{\boxed{\text{For $y(0)=-\frac{3}{4}$}\quad:\quad \lim_{t\to -\infty} y(t) = 1}} $$
+
+\pagebreak
+
+\subsection*{Problem 3.}
+
+A well mixed tank with a capacity of 1500 gals originally contains 1000 gals of fresh water. One pipe containing $1 / 2 \mathrm{lb}$ of salt per gallon is entering at a rate of $4 \mathrm{gal} / \mathrm{min}$. The second pipe containing $1 / 3 \mathrm{lb}$ of salt per gallon is entering at a rate of $6 \mathrm{gal} / \mathrm{min}$. The mixture is allowed to flow out of the tank at a rate of $5 \mathrm{gal} / \mathrm{min}$.\\
+
+ Find the amount of salt in the tank at any time prior to the instant when the solution begins to overflow.\\
+
+Try it our before looking at the solution.
+
+\pagebreak
+
+\subsection*{Solution to 3.}
+
+Let's start off by writing out our quantities:
+$$
+\left\{
+\begin{array}{ll}
+V_{o}=1000 & Q_o=0 \\
+V_{\text {max }}=1500 & V(t)=\bigg[\underbrace{(4 + 6)}_{r_{in_1} + r_{in_{2}}} - \underbrace{5}_{r_{out}}\bigg]t+1000 \\
+r_{\text {in}_1}=4 & c_{\text{in}_1} = 1/2 \\
+r_{\text {in}_2}=6 & c_{\text{in}_2} = 1/3\\
+r_{\text{out}}=5 & c_{\text{out}} = \frac{Q(t)}{5t + 1000}
+\end{array}
+\right\}
+$$
+
+With our quantities defined, let's write the key equation for tank problems:
+$$ \frac{dQ}{dt} = \left[r_{in_1}c_{in_1} + r_{in_2}c_{in_2}\right] - \left[r_{out}c_{out}\right]. $$
+Plugging in our values, we see that
+$$ Q' = \left[(4)\left(\frac{1}{2}\right) + (6)\left(\frac{1}{3}\right)\right] - \left[(5)\left(\frac{Q}{2t + 1000}\right)\right]. $$
+Combining our terms we have
+$$ Q' = 4 - \frac{5}{2t + 1000}Q \quad\implies\quad Q' = 4 - \left(\frac{5}{5}\right)\frac{Q}{t + 200} \quad\implies\quad Q' = 4 - \frac{Q}{t + 200}.$$
+You will get the same answer (even though things look different now) if you didn't pull out a factor of 5 from the numerator and denominator. I just do this because it makes the integration of $p(t)$ a bit easier.\\
+
+Let's put what we have into the general form of a FOL equation to identify $p(t)$ and $f(t)$.
+
+$$ Q' + \underbrace{\frac{1}{t + 200}}_{p(t)}Q = \underbrace{4}_{f(t)}. $$
+We begin finding $\mu \equiv e^{\int p(t)dt}$ by finding the integral of $p(t)$.
+$$ \int p(t)dt = \int \frac{1}{t + 200}dt = \ln{(t + 200)} \quad\therefore\quad \mu(t) = e^{\ln{(t + 200)}} \quad\implies\quad \mu(t) = (t + 200). $$\\
+
+With $\mu$, we can use the key to FOL equations to find $Q$.
+
+$$ \mu Q = \int \mu f dt .$$
+$$ \mu Q = \int (t+200)(4)dt \quad\implies\quad \mu Q = 4\left[\frac{t^2}{2} + 200t + C\right] \quad\implies\quad \mu Q = 2t^2 + 800t + C_2 . $$
+Let's divide both sides by $\mu$.
+$$ Q_g = \frac{2t^2 + 800t}{t + 200} + \frac{C_2}{t + 200}. $$
+Using our initial condition, $Q_o = 0$,
+$$ Q_o = 0 \quad:\quad 0 = \frac{0 + 0}{0 +200} + \frac{C_2}{0 +200} \quad\implies\quad C_2 = 0. $$
+This gives us our specific solution:
+$$ \boxed{Q_s(t) = \frac{2t^2 + 800t}{t + 200}} $$
+This is our final answer, we are asked to find the amount of salt in the tank "\textit{\textbf{at any time prior to the instant when the solution begins to overflow}}". This corresponds to our specific solution, which is valid for any time $t$ prior to the tank overflowing.
+
+$$ \underline{\boxed{Q_s(t) = \frac{2t^2 + 800t}{t + 200} \text{ lbs}}} $$
+
+\pagebreak
+
+\subsection*{Problem 4.} Solve the IVP:
+$$ \sin(y) + \left[e^y + x\cos(y)\right]y^{\prime} = 0 \quad; \quad y(0)=0. $$
+\\
+ 
+Try it out before looking at the solution.
+ \pagebreak
+ 
+ \subsubsection*{Solution to 4:}
+ The problem should have a form that we are familiar with. The general form of an exact equation is:
+\begin{equation}
+	M(x,y) + N(x,y)y^{\prime} = 0.
+\label{eq:1}
+\end{equation}
+The original function is some slice of a 3-dimensional surface at $z=C$. 
+\begin{equation}
+	F(x,y) = C.
+	\label{eq:5}
+\end{equation}
+ With exact equations, we are playing detective. We want to find the original function $F(x,y)$, and we are given the clues above. $M(x,y)$ and $N(x,y)$ are two pieces of our original function. To be specific:
+\begin{equation}
+	F_x \equiv M \quad \text{and} \quad F_y \equiv N.
+	\label{eq:2}
+\end{equation}
+I will be using less dense partial derivative notation. Above, $F_x$ is the partial derivate of $F$ with respect to $x$, which is clunkily written as $\frac{\partial F(x,y)}{\partial x}$. $F_y$ is the partial derivative of $F$ with respect to $y$.\\
+
+ 
+ For our problem, let's first identify $M(x,y)$ and $N(x,y)$, which we will call $M$ and $N$ for short:
+
+ \begin{center}
+$\left\{
+\begin{array}{l}
+ 	 M = \sin(y)\\
+ N = e^y + x\cos(y)
+\end{array}
+\right\}$
+\end{center}
+In order to verify that this is an exact equation and that we can proceed with this solution technique, we must ensure that the mixed partials of our original function, $F$ are equal to each other.\\
+
+We see if:
+$$ M_y \overset{?}= N_x. $$
+Let's take a second and thing about that (if you aren't curious where this seemingly arbitrary condition comes from, feel free to skip what's in between the two lines).
+
+------------------------------------------------------------\\
+In Equation (\ref{eq:1}), $M$ is defined as the partial of $F$ with respect to $x$ and $N$ is defined as the partial of $F$ with respect to $y$. This means that:
+\begin{equation}
+	M_{y} = F_{xy} \quad \text{and} \quad N_{x} = F_{yx}.
+	\label{eq:3}
+\end{equation}
+
+In other words, our differential equation is exact if and only if:
+$$ F_{xy} = F_{yx}. $$
+------------------------------------------------------------
+
+Let's check this condition for our particular problem:
+$$ M_y = \frac{\partial}{\partial y}[\sin(y)] \quad \implies  \quad \underline{M_{y} = \cos(y)}, $$
+$$ N_x = \frac{\partial}{\partial x}[e^y + x\cos(y)] \quad\implies \quad \underline{N_x=\cos(y)}. $$
+$$ \boxed{M_y = N_x \quad\therefore\quad \text{ is exact}.} $$
+Okay, so we're working with an exact equation. The next step is to "undo" $M$ or $N$. Let's pick $M$ to "undo" (I always pick $M$). $M$ is the partial derivative of our unknown function, $F$, with respect to $x$. To "undo" this partial derivative in $x$, we will integrate in $x$. The apostrophes around "undo" are there because we aren't going to fully recover our original function by integrating. We will be left with an unknown term.\\
+
+Integrating $M$ with respect to $x$:
+$$F_{ish} = \int M dx + g(y) \quad\implies \quad F_{ish} = \int \sin(y)dx + g(y) \quad\implies ...$$
+$$ ...\implies \quad \underline{F_{ish} = x\sin(y) + g(y)}. $$
+When we integrate $M$ with respect to $x$, we get our original-ish function. The -ish part comes from the unknown function of $y$, $g(y)$.\\
+
+Okay so this is our original-ish function. We need to continue playing detective in order to find the missing piece, $g(y)$. \\
+
+Let's think back to what $N$ is. Equation (\ref{eq:2}) tells us that $N$ is defined as $F_y$. If this is the case, then the partial derivative of $F_{ish}$ with respect to $y$ is also equal to $N$:
+$$ N = F_y = \frac{\partial}{\partial y}[F_{ish}] \quad \therefore \quad N = \frac{\partial}{\partial y}[F_{ish}], $$
+Taking the partial derivative with respect to $y$ of our $F_{ish}$:
+$$ N = \frac{\partial}{\partial y}[F_{ish}] \quad\implies \quad N = \frac{\partial}{\partial y}[x\sin(y) + g(y)] \quad\implies \quad N = x\cos(y) + g^{\prime}(y). $$
+Okay, let's substitute what $N$ is and solve for $g^{\prime}$(y):
+$$ e^y + x\cos(y) = x\cos(y) + g^{\prime}(y) \quad\implies \quad g^{\prime}(y) = e^y. $$
+Okay, quick break. Did you see how things cancelled and got nicer? \underline{That should happen.} If that doesn't happen, backtrack and make sure $F_{ish}$ is correct.\\
+
+We now have $g^{\prime}$(y). To get $g(y)$, we simply solve the mini differential equation using separation of variables:
+$$ \frac{dg}{dy} = e^y \quad\implies \quad dg = e^ydy \quad\overset{\int}\implies \quad \int dg = \int e^y dy \quad\implies \quad \underline{g(y) = e^y }.$$
+You may wonder where the constant of integration is. One sec. Let's plug $g(y)$ into $F_{ish}$ in order to get $F$ (the fully complete original function):
+$$ F_{ish} = x\sin(y) + g(y): \quad \overset{\text{sub $g(y)$ into }F_{ish}}\implies \quad F = x\sin(y) + e^y.$$
+Remember in Equation (\ref{eq:5}) how with exact equations the function $F(x,y)$ is equal to some constant, $C$. Well, let's set the function above equal to $C$:
+$$ F(x,y)=C: \quad\implies \quad \underline{C = x\sin(y) + e^y}. $$
+Okay, this is the general solution to our differential equation. To get the specific solution, we must solve for $C$ using our initial condition: $y(0)=0$:
+$$ y(0)=0: \quad\overset{\text{sub (0,0) into }F(x,y)}\implies \quad C = (0)\sin(0) + e^0 \quad\implies \quad C = 1, $$
+$$ \underline{\boxed{x\sin(y) + e^y = 1}} $$
+This is the specific solution for our differential equation. It is completely reasonable to leave it in implicit form (good luck trying to solve it explicitly for y).
+\\ 
+
+This all may seem like a lot, but to give an idea of what you may write when solving a problem like this. I ’ll condense it below:
+
+\subsubsection*{Short Solution to 4:}
+\textbf{Step 1:} The equation is in the form of an exact equation. Let's identify $M$ and $N$:
+
+ \begin{center}
+$\left\{
+\begin{array}{l}
+ 	 M = \sin(y)\\
+ N = e^y + x\cos(y)
+\end{array}
+\right\}$
+\end{center}
+\textbf{Step 2:} Check if:
+$$M_y \stackrel{?}{=} N_x,$$
+$$M_y = \cos(y) \quad\text{and}\quad N_x=\cos(y) \quad\implies \quad M_y =N_x \quad\therefore\quad \text{is exact}. $$
+\textbf{Step 3:}
+Integrate $M$ with respect to $x$ to find $F_{ish}$:
+$$ F_{ish} = \int Mdx + g(y) \quad\implies \quad F_{ish} = \int \sin(y)dx + g(y) \quad\implies \quad F_{ish} = x\sin(y) + g(y). $$
+\textbf{Step 4:} Next, we take the partial of $F_{ish}$ with respect to $y$ and set it equal to $N$ to find $g^{\prime}$(y):
+$$ \frac{\partial}{\partial y}[F_{ish}] = N \quad\implies \quad \frac{\partial}{\partial y}[x\sin(y) + g(y)] = e^y + x\cos(y) \quad\implies ...$$
+$$...\implies \quad x\cos(y) + g^{\prime}(y) = e^y + x\cos(y) \quad\implies \quad g^{\prime}(y) = e^y.$$
+\textbf{Step 5:} Next, we integrate both sides to find $g(y)$:
+$$ \int g^{\prime}(y) = \int e^y \quad\implies \quad g(y) = e^y.$$
+\textbf{Step 6:} We substitute $g(y)$ into $F_{ish}$ and set $F_{ish}$ equal to $C$:
+$$ C = F_{ish}(x,y) \quad\implies \quad C = x\sin(y) + e^y. $$
+\textbf{Step 7:} Lastly, let's find our constant using the initial condition that we are given and substitute the constant into the general solution above:
+$$ C: \quad\implies \quad y(0)=0: \quad\implies \quad C = (0)\sin(0) + e^{o} \quad\implies \quad C = 1, $$
+$$ \underline{\boxed{1 = x\sin(y) + e^y}}  $$
+
+\pagebreak
+
+\subsection*{Problem 5.} Solve the IVP:
+$$ xyy^\prime = x^2 + y^2 \quad ; \quad y(1) = 3.$$
+\\
+ 
+Try it out before looking at the solution.
+\pagebreak
+ 
+ \subsubsection*{Profiling the Differential Equation}
+ Classifying this differential equation isn't easy. Let's run through the process of profiling the differential equation.\\
+ 
+ We will go down the list, chronologically, of differential equation types that we have learned about until we find which one matches what we were given.\\
+
+ 
+ \textbf{Is it a Separable Equation?}
+ $$ xy\frac{dy}{dx} = x^2 + y^2 \quad\implies \quad \frac{dy}{dx} = \frac{x^2 + y^2}{xy} \quad\implies \quad \frac{dy}{dx} = \frac{x}{y} + \frac{y}{x} \quad\implies\quad y' = h(x,y) + g(x,y)\ldots $$
+ $$ \ldots\implies \quad \boxed{y' \neq h(x)g(y) \quad\therefore\quad \textbf{not separable.}} $$
+ $y'$ is not able to be manipulated into the form of some function of $x$ times some function of $y$, so it is not a Separable Equation.\\
+ 
+ \textbf{Is it an Autonomous Equation?}\\
+ 
+ From what we've determined above, $y'$ is the sum of two functions of $x$ and $y$, which implies that it is not only a function of the dependent variable:
+ $$ y' = h(x,y) + g(x,y) \implies \boxed{y' \neq g(y) \quad\therefore\quad \textbf{not autonomous.}}$$
+ $y'$ is not some function of the dependent variable, $y$, so it is not an Autonomous Equation.\\
+ 
+ \textbf{Is is a F.O.L. Equation?}
+ $$ xyy' = x^2 + y^2 \quad\implies \quad y' = \frac{x}{y} + \frac{y}{x} \quad\implies \quad y' - \frac{1}{x}y = \frac{x}{y} \quad\implies\quad y' + p(x)y = f(x,y)\ldots $$
+ $$\ldots\implies \quad \boxed{\bigg[y^{\prime}+p(x)y=f(x, y)\bigg] \neq \bigg[y' + p(x)y = f(x)\bigg] \quad\therefore\quad \textbf{not F.O.L.}} $$
+ Our differential equation has a function, $f$ of $x$ and $y$. To be first order linear it must have only a function of $x$ on the RHS of the equals sign.\\
+ 
+ \boxed{\textbf{If you have not learned about Bernoulli equations, skip this part}}---------------\\
+ 
+ \textbf{Is it a Bernoulli Equation?}\\
+ 
+ We are testing Bernoulli because whenever we see an "almost" F.O.L Equation as in the previous test, it signals that we could be working with a Bernoulli equation. Let's test it out:
+ $$ y' - \frac{1}{x}y = \frac{x}{y} \quad\overset{\text{rewriting}}\implies \quad y' - \frac{1}{x}y = xy^{-1} \quad\implies\quad y' + p(x)y = f(x)y^n \quad\implies \ldots $$
+ $$ \ldots\implies \quad \boxed{\bigg[y' + p(x)y = f(x)y^n\bigg] = \bigg[y' + p(x)y = f(x)y^n\bigg] \quad\therefore\quad \textbf{is Bernoulli.}}$$
+ This is a Bernoulli equation. At this point, if we are not told to use a specific solution method, we could proceed with the Bernoulli Equation solution method. However, let's continue profiling as an exercise in spotting differential equation types.\\
+ 
+ \boxed{\textbf{If you have not learned about Bernoulli equations, continue here}}---------------\\
+ 
+ \textbf{Is it an Exact Equation?}
+ $$ xyy' = x^2 + y^2 \quad\implies \quad (-x^2 - y^2) + (xy)y' = 0 \quad\implies \ldots $$
+ $$ M_y = -2y \quad\text{and}\quad N_x = y  \quad\implies\quad \boxed{M_y \neq N_x \quad\therefore\quad \textbf{not exact.}}$$\\
+ \textbf{Is it a Homogenous Equation?}
+ $$ xyy' = x^2 + y^2 \quad\overset{\left(\begin{array}{l}
+x=t x \\
+y=t y
+\end{array}\right)}\implies \quad (tx)(ty)y' = (tx)^2 + (ty)^2 \quad\implies \quad t^2xyy' = t^2(x^2 + y^2) \quad\implies \ldots$$
+$$ \ldots\implies \quad xyy' = \frac{t^2}{t^2}(x^2 + y^2) \quad\implies \quad xyy' = x^2 + y^2 \quad\implies\ldots$$
+$$ \ldots\implies\quad \boxed{y^{\prime}\left(\begin{array}{l}
+x=t x \\
+y=t y
+\end{array}\right) = y^{\prime}\left(\begin{array}{l}
+x=x \\
+y=y
+\end{array}\right) \quad\therefore\quad \textbf{is homogenous.}} $$
+The differential equation is homogenous if the $t$'s "disappear" when we substitute $tx$ and $ty$ wherever there is an $x$ and $y$ in our equation, respectively.\\
+
+From this profiling, we known that our differential equation is both a Homogenous Equation and a Bernoulli Equation. For no particular reason, let's solve it as a Homogenous Equation.\\
+
+I should note that this was an extensive exercise in profiling our differential equation. I understand that there is a large time constraint on exams. Typically for a question like this, we would immediately recognize that it is not separable or autonomous, we would attempt F.O.L. and see that is is almost F.O.L. Because of how close it is to F.O.L. we may try Bernoulli and see that it satisfies those conditions. As an exercise after solving this using the homogenous equation method, try using the Bernoulli equation method and seeing if your answers agree.
+
+\pagebreak
+
+\subsubsection*{Solution to Question 5:}
+To begin solving this as a homogenous equation, let's remember our substitution:
+$$ \boxed{v = \frac{y}{x}} $$
+From here, let's solve our differential equation for y'. Before we do this, I'll explain why. There are two elementary types of manipulation of our equation that you'll see happen very often. \begin{enumerate}
+	\item Making our differential equation monic (the coefficient of the highest order derivative is 1).
+	\item Solving our equation for our highest order derivative.
+\end{enumerate}
+Putting our differential equation in one of these forms typically helps. Let's solve for our derivative:
+$$ xyy' = x^2 + y^2 \quad\implies \quad y' = \frac{x^2 + y^2}{xy}. $$
+Now, with homogenous equations, our goal is to "see" our substitution for $v$ show up in all terms of the differential equation. At the moment, we don't clearly see any terms that are in $\frac{y}{x}$ or $\frac{x}{y}$ form, so we will have to manipulate it further:
+$$ y'=\frac{x^2 + y^2}{xy} \quad\implies \quad y' = \frac{x}{y} + \frac{y}{x}.$$
+At this point we "see" the substitutions to be made:
+$$ y' = v^{-1} + v. $$
+We aren't quite done. The whole point of substitution is to turn a differential equation in $y$ and $y'$ into one in $v$ and $v'$. To replace the $y'$ we take the implicit derivative of our substitution factor:
+$$ v = \frac{y}{x} \quad\implies \quad y = xv \quad\overset{\frac{d}{dx}[y]}\implies \quad \frac{d}{dx}[y = xv] \quad\overset{\text{using product rule}}\implies \quad \underline{y' = v + xv'.}  $$
+It's important that we remember to use product rule because $v$ is a function of $x$ just as $y$ is a function of $x$. Let's insert this alternate form of $y'$ into our differential equation.
+$$ y^{\prime}=v^{-1}+v \quad\overset{y^{\prime}=v+x v^{\prime} }\implies \quad v + xv' = v^{-1} + v \quad\implies \quad xv' = v^{-1} \quad\overset{\text{monic}}\implies \quad v' = v^{-1}x^{-1}.$$
+We have a new differential equation to solve now, one that is fairly straight forward. This is a separable equation because our derivative is set equal to the product of a function of the independent variable, $x^{-1}$, and a function of the dependent variable, $v^{-1}$. Let's solve this as separable:
+$$ \frac{dv}{dx} = \frac{1}{xv} \quad\implies \quad vdv = \frac{1}{x}dx \quad\overset{\int}\implies \quad \frac{v^2}{2} = \ln{(x) + C} \quad\implies \quad v = \sqrt{2\ln{(x) + C}}. $$
+It's crucial that we don't plug our initial condition in here. This is a function for $v$, not $y$. Let's "unsubstitute" $v$ back into $\frac{y}{x}$.
+$$ \frac{y}{x} = \sqrt{2\ln{(x) + C}} \quad\implies \quad \boxed{y_g(x) = x\sqrt{2\ln{(x) + C}}} $$
+Now, we use our initial condition to find $C$:
+$$ C:\quad y(1)=3 \quad ; \quad 3 = (1)\sqrt{2\ln{(1)} + C} \quad\implies \quad 3 = \sqrt{C} \quad\implies \quad \underline{C = 9}. $$
+Plugging this into our general solution, we have
+$$\underline{\boxed{y_s(x) = x\sqrt{2\ln{(x)} + 9}}}$$
+
+
+\end{document}

@@ -1,0 +1,195 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1. Document Class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+ % The first command you will always have will declare your document class. This tells LaTeX what type of document you are creating (article, presentation, poster, etc). 
+% \documentclass is the command
+% in {} you specify the type of document
+% in [] you define additional parameters
+ 
+\documentclass[a4paper,12pt]{article} % This defines the style of your paper
+
+% We usually use the article type. The additional parameters are the format of the paper you want to print it on and the standard font size. For us this is a4paper and 12pt.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 2. Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Packages are libraries of commands that LaTeX can call when compiling the document. With the specialized commands you can customize the formatting of your document.
+% If the packages we call are not installed yet, TeXworks will ask you to install the necessary packages while compiling.
+
+% First, we usually want to set the margins of our document. For this we use the package geometry. We call the package with the \usepackage command. The package goes in the {}, the parameters again go into the [].
+\usepackage[top = 2.5cm, bottom = 2.5cm, left = 2.5cm, right = 2.5cm]{geometry} 
+
+% Unfortunately, LaTeX has a hard time interpreting German Umlaute. The following two lines and packages should help. If it doesn't work for you please let me know.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{cancel}
+\usepackage{amssymb}
+
+% The following two packages - multirow and booktabs - are needed to create nice looking tables.
+\usepackage{multirow} % Multirow is for tables with multiple rows within one cell.
+\usepackage{booktabs} % For even nicer tables.
+
+% As we usually want to include some plots (.pdf files) we need a package for that.
+\usepackage{graphicx} 
+
+% The default setting of LaTeX is to indent new paragraphs. This is useful for articles. But not really nice for homework problem sets. The following command sets the indent to 0.
+\usepackage{setspace}
+\setlength{\parindent}{0in}
+
+% Package to place figures where you want them.
+\usepackage{float}
+
+% The fancyhdr package let's us create nice headers.
+\usepackage{fancyhdr}
+
+% Citing references will be hyperlinked and blue
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+
+\usepackage{amsmath}
+
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 3. Header (and Footer)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% To make our document nice we want a header and number the pages in the footer.
+
+\pagestyle{fancy} % With this command we can customize the header style.
+
+\fancyhf{} % This makes sure we do not have other information in our header or footer.
+
+\lhead{\footnotesize }% \lhead puts text in the top left corner. \footnotesize sets our font to a smaller size.
+
+%\rhead works just like \lhead (you can also use \chead)
+\rhead{\footnotesize Collins \thepage} %<---- Fill in your lastnames.
+
+% Similar commands work for the footer (\lfoot, \cfoot and \rfoot).
+% We want to put our page number in the center.
+\cfoot{\footnotesize} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 4. Your document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Now, you need to tell LaTeX where your document starts. We do this with the \begin{document} command.
+% Like brackets every \begin{} command needs a corresponding \end{} command. We come back to this later.
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title section of the document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% For the title section we want to reproduce the title section of the Problem Set and add your names.
+
+\thispagestyle{empty} % This command disables the header on the first page. 
+
+\begin{tabular}{p{15.5cm}} % This is a simple tabular environment to align your text nicely 
+\\ Collin Collins \\
+MATH 3400\\
+SI Session 3 Practice Problems and Solutions\\
+10 February 2023 \\
+\hline % \hline produces horizontal lines.
+
+\end{tabular} 
+
+\subsection*{Problem 1.}
+
+Find the solution of the following IVP using a substitution technique.
+$$ \frac{\mathrm{d} y}{\mathrm{~d} x}=\frac{3 y-4 x}{x} \quad;\quad y(1)=8.$$
+
+Try it out before looking at the solution.
+
+\pagebreak
+
+\subsection*{Solution to 1.}
+
+Let's rewrite the equation and mess around with it to see if we spot the general form of an equation that we know:
+$$ y' = \frac{3}{x}y - 4 \quad\implies\quad y' - \frac{3}{x}y = -4. $$
+It is FOL, but we want to use substitution. The reason we put it into FOL form is because this is how we can also identify a Bernoulli's equation, which has the general form:
+$$ \underbrace{y' + p(x)y = f(x)y^{n}}_{\text{Bernoulli's Equation}}. $$
+Our differential equation isn't of this form, so let's check for a different substitution technique. Namely, the homogenous substitution.
+$$ \underbrace{y'(x, y) = y'(tx, ty)}_{\text{Homogenous Equation}}. $$
+Let's perform this test with our differential equation:
+$$ y' = \frac{3(ty) - 4(tx)}{(tx)} \quad\implies\quad y' = \frac{3y-4x}{x} \left(\frac{t}{t}\right) \quad\therefore\quad y'(tx, ty)=y'(x,y). $$
+Immediately, we should remember what our substitution factor is:
+$$ \boxed{v=\frac{y}{x}} $$
+Now, let's get our differential equation to consist of terms that contain a factor of $\frac{y}{x}$, so it's clear where we plug this substitution factor in.
+$$ y' = 3\left(\frac{y}{x}\right) - 4. $$
+Plugging in $v$ for $y/x$,
+$$ y' = 3v -4. $$
+This should look wrong. We need to find a way to replace the $y'$ with something in the $v$ world.
+$$ v=\frac{y}{x} \quad\implies\quad y = vx \quad\overset{\text{I.D. with product rule}}\implies\quad y' = v'x + v. $$
+Making this substitution for $y'$,
+$$ v'x + v = 3v - 4 \quad\implies\quad v'x = 2v-4 \quad\implies\quad \frac{dv}{dx} = \frac{2v-4}{x}. $$
+This is a separable equation, so let's separate it.
+$$ \frac{1}{2v-4}dv = \frac{1}{x}dx \quad\overset{\int}\implies\quad \frac{1}{2}\ln{|2v-4|} = \ln{|x|+C} \quad\overset{e}\implies\quad 2v-4 = Ax^2 \quad\implies\ldots$$
+$$\ldots\implies\quad v=\frac{1}{2}\left(Ax^2+4\right) \quad\implies\quad v_g = Bx^2 + 2.  $$
+This is the general solution for the differential equation, $v$, but we need a solution for $y$. Let's 'unsubstitute' our value of $v$.
+$$ \frac{y_g}{x} = Bx^2 + 2 \quad\implies\quad y_g = Bx^3 + 2x. $$
+Let's use our initial condition: $y(1)=8.$
+$$ (1,8)\quad:\quad 8 = B(1)^3 + 2(1) \quad\implies\quad B = 6. $$
+With this value of $B$,
+$$ \underline{\boxed{y_s(x) = 6x^3 + 2x}} $$
+
+\pagebreak
+
+\subsection*{2.} 
+Solve the IVP:
+$$xy' + y = x^2y^2 \quad ; \quad y(1)=2.$$
+\\
+ 
+Try it out before looking at the solution.
+\pagebreak
+
+\subsubsection*{Solution to 2:}
+Looking at this differential equation, we're not likely able to separate our variables, so let's try putting it into FOL form:
+$$ xy' + y = x^2y^2 \quad\implies \quad y' + \frac{y}{x} = xy^2$$
+We'll pause here and think about what we have. Our $p(x)$ is $\frac{1}{x}$ and our $f(x)$ is some function of $x$ and $y$: $xy^2$. At this point we can rule our FOL since $f(x)$ is not a function of $x$ alone.\\
+
+Since what we have is almost FOL, that tells us that we should try the Bernoulli's Equation form, which is:
+$$ y' + p(x)y = f(x)y^n. $$
+This is almost identical to FOL, but instead of $f(x)$ alone on the RHS of the equation, we have $f(x)y^n$.\\
+
+For our equation we could turn $f(x,y)$ into $f(x)y^n$ where $n=2$ and $f(x)=x$. We now have
+a Bernoulli's Equation. To begin with this solution technique, let's remember that our substitution should be:
+$$ \boxed{v = y^{1-n}} $$
+For our specific problem, $n=2$, so
+$$ v = y^{-1}.$$
+Now, let's take our substitution factor's implicit derivative to figure our what we should replace $y'$ with in our differential equation:
+$$ v = y^{-1} \quad\overset{\frac{d}{dx}[v]}\implies \quad v' = -y^{-2}y' \quad\implies \quad y' = -y^2v'.$$
+
+Let's make the underlined substitutions and see what our differential equation becomes:
+$$ y' + \frac{1}{x}y = xy^2 \quad\implies \quad [-y^2v'] + \frac{1}{x}y = xy^2. $$
+It may seem like things have gotten worse, let's make our differential equation monic by dividing through by $-y^2$.
+$$ \frac{-y^2v' + \frac{1}{x}y = xy^2}{-y^2} \quad\implies \quad v' -\frac{1}{xy} = -x. $$
+Lastly, since our substitution factor uses negative exponents, let's make what we have be in that same form (when working with Bernoulli equations, it's generally good to use negative exponents instead of fractions):
+$$ v' - x^{-1}y^{-1} = -x \quad\text{if $v=y^{-1}$, then}\quad v' - x^{-1}v = -x. $$
+Now, we have a FOL Equation where $p(x) = -\frac{1}{x}$ and $f(x)=-x$. Let's find our integrating factor.
+$$ \mu(x) \equiv e^{\int p(x)dx} \quad\implies \quad \mu(x) = e^{-\int \frac{1}{x} dx} \quad\implies \quad \mu(x) = e^{\ln{(x^{-1})}} \quad\implies \quad \mu(x) = x^{-1}. $$
+Our solution form for FOL is:
+$$ \mu v = \int \mu f.$$
+For our problem, we have:
+$$ x^{-1}v = \int x^{-1}(-x)dx \quad\implies \quad v = x\int -1dx \quad\implies \quad v = -x[x + C] \quad\implies \ldots $$
+$$\ldots\implies \quad v = -x^2 + C_2x. $$
+We're not done yet, this is a function of $v$, let's unsubstitute to make it a function of $y$:
+$$ v(x) =  C_2x -x^2 \quad\implies \quad y^{-1} = C_2x-x^2 \quad \implies \quad y_g(x) = \frac{1}{C_2x-x^2}.$$
+With our general solution, we can use the initial condition to find our specific solution:
+$$ C: \quad y(1)=2\quad;\quad 2 = \frac{1}{C_2(1) - (1^2)} \quad\implies \quad 2C_2 -2 = 1 \quad\implies \quad  C_2 = \frac{3}{2}. $$
+Plugging this into our general solution:
+$$ \underline{\boxed{y_s(x) = \frac{1}{\frac{3}{2}x - x^2}}} $$
+
+
+
+
+\end{document}

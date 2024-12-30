@@ -1,0 +1,268 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1. Document Class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+ % The first command you will always have will declare your document class. This tells LaTeX what type of document you are creating (article, presentation, poster, etc). 
+% \documentclass is the command
+% in {} you specify the type of document
+% in [] you define additional parameters
+ 
+\documentclass[a4paper,12pt]{article} % This defines the style of your paper
+
+% We usually use the article type. The additional parameters are the format of the paper you want to print it on and the standard font size. For us this is a4paper and 12pt.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 2. Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Packages are libraries of commands that LaTeX can call when compiling the document. With the specialized commands you can customize the formatting of your document.
+% If the packages we call are not installed yet, TeXworks will ask you to install the necessary packages while compiling.
+
+% First, we usually want to set the margins of our document. For this we use the package geometry. We call the package with the \usepackage command. The package goes in the {}, the parameters again go into the [].
+\usepackage[top = 2.5cm, bottom = 2.5cm, left = 2.5cm, right = 2.5cm]{geometry} 
+
+% Unfortunately, LaTeX has a hard time interpreting German Umlaute. The following two lines and packages should help. If it doesn't work for you please let me know.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{cancel}
+\usepackage{amssymb}
+\usepackage{halloweenmath}
+
+% The following two packages - multirow and booktabs - are needed to create nice looking tables.
+\usepackage{multirow} % Multirow is for tables with multiple rows within one cell.
+\usepackage{booktabs} % For even nicer tables.
+
+% As we usually want to include some plots (.pdf files) we need a package for that.
+\usepackage{graphicx} 
+
+% The default setting of LaTeX is to indent new paragraphs. This is useful for articles. But not really nice for homework problem sets. The following command sets the indent to 0.
+\usepackage{setspace}
+\setlength{\parindent}{0in}
+
+% Package to place figures where you want them.
+\usepackage{float}
+
+% The fancyhdr package let's us create nice headers.
+\usepackage{fancyhdr}
+
+% Citing references will be hyperlinked and blue
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+
+\usepackage{amsmath}
+
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 3. Header (and Footer)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% To make our document nice we want a header and number the pages in the footer.
+
+\pagestyle{fancy} % With this command we can customize the header style.
+
+\fancyhf{} % This makes sure we do not have other information in our header or footer.
+
+\lhead{\footnotesize }% \lhead puts text in the top left corner. \footnotesize sets our font to a smaller size.
+
+%\rhead works just like \lhead (you can also use \chead)
+\rhead{\footnotesize Collins \thepage} %<---- Fill in your lastnames.
+
+% Similar commands work for the footer (\lfoot, \cfoot and \rfoot).
+% We want to put our page number in the center.
+\cfoot{\footnotesize} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 4. Your document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Now, you need to tell LaTeX where your document starts. We do this with the \begin{document} command.
+% Like brackets every \begin{} command needs a corresponding \end{} command. We come back to this later.
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title section of the document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% For the title section we want to reproduce the title section of the Problem Set and add your names.
+
+\thispagestyle{empty} % This command disables the header on the first page. 
+
+\begin{tabular}{p{15.5cm}} % This is a simple tabular environment to align your text nicely 
+\\ Collin Collins \\
+MATH 3400\\
+SI Session 5 Practice Problems and Solutions\\
+17 February 2023 \\
+\hline % \hline produces horizontal lines.
+
+\end{tabular} 
+
+\subsection*{Problem 1.} 
+Solve the IVP:
+$$2 y^{\prime \prime}-3 y^{\prime}+y=0 \quad ; \quad y(0)=1 \quad ; \quad y'(0)=0.$$
+\\
+ 
+Try it out before looking at the solution.
+\pagebreak
+
+\subsubsection*{Solution to Problem 1:}
+To profile this differential equation, let's look at it's order. It's a second order differential equation. Once we see it's order, let's examine the coefficients of each term. They're constants and are not functions of $x$. Lastly, it is set equal to zero, meaning it is homogenous.\\
+
+From this profiling, we know that we are working with a 2nd order, linear, constant coefficients, homogenous, differential equation. Let's say that five more times to lock it in$_{\text{ just kidding}}$.\\
+
+This type of differential equation is relatively simple to solve (seriously) if we remember a few things.
+
+\begin{enumerate}
+	\item Find the discriminant
+	\item Remember which discriminant case corresponds to which solution form
+	\item Match the discriminant case to the general solution form
+	\item Use the quadratic formula to find the root[s].
+	\item Use the initial conditions to find a specific solution.
+\end{enumerate}
+Let's be reminded of the discriminant trichotomy:\\
+\begin{itemize}
+	\item $D>0$: two real distinct roots $\lambda_1$ and $\lambda_2$, The general solution is
+$$
+y_g(x)=C_1 e^{\lambda_1 x}+C_2 e^{\lambda_2 x}.
+$$
+\item $D=0$: one real repeated root $\lambda$. The general solution is
+$$
+y_g(x)=\left(C_1+C_2 x\right) e^{\lambda x}.
+$$
+\item $D<0$: A pair of complex conjugate roots $\lambda=\alpha \pm i \beta$. The general solution is
+$$
+y_g(x) =e^{\alpha x}\bigg[C_1\cos (\beta x)+C_2\sin (\beta x)\bigg].
+$$
+
+
+\end{itemize}
+
+Let's find our discriminant:
+$$ D = b^2 - 4ac \quad\implies \quad D = (-3)^2 - 4(2)(1) \quad\implies \quad D = 1\quad\implies \ldots$$
+$$\ldots\implies \quad \boxed{D > 0 \quad\therefore\quad y_g(x) = C_1e^{\lambda_1 x} + C_2e^{\lambda_2 x}} $$
+Just like that we have the form of our general solution. To complete our answer, we simply need to find the roots of the quadratic in $\lambda$.
+$$ \lambda_{1,2} = \frac{-b \pm \sqrt{D}}{2a} $$
+Let's plug in our values:
+$$ \lambda_{1,2} = \frac{3 \pm 1}{4} \quad\implies\quad \boxed{\lambda_1 = 1 \quad ; \quad \lambda_2 = \frac{1}{2}} $$
+With our roots, we will plug them into the form of the general solution to get the general solution to this particular problem:
+$$ \boxed{y_g(x) = C_1e^{x} + C_2e^{\frac{x}{2}}} $$
+Since we are given initial conditions, we should use them to determine our constants, $C_1$ and $C_2$.
+$$y(0)=1 \quad : \quad 1 = C_1(1) + C_2(1) \quad\implies \quad \underline{C_1 + C_2 = 1.}$$
+Next we will take the derivative of the general solution to plug in the second initial condition, $y^\prime(0)=0.$
+$$ y^\prime(0)=0 \quad : \quad \frac{d}{dx}\left[y_g(x) = C_1e^{x} + C_2e^{\frac{x}{2}}\right] \quad\implies \quad y^\prime(x) = C_1e^x + \frac{1}{2}C_2e^{\frac{x}{2}} \quad \implies \ldots$$
+$$ \ldots\implies \quad 0 = C_1(1) + \frac{1}{2}C_2(1) \quad\implies \quad \underline{C_1 + \frac{1}{2}C_2 = 0.} $$
+Let's use an augmented matrix to solve this system:
+$$\begin{bmatrix}
+	1 & 1 & \vline & 1 \\
+	1 & \frac{1}{2} & \vline & 0
+\end{bmatrix} 
+\quad -R_1 + R_2 \implies  R_2 \quad 
+\begin{bmatrix}
+	1 & 1 & \vline & 1 \\
+	0 & -\frac{1}{2} & \vline & -1
+\end{bmatrix}
+\quad 2R_2 + R_1 \implies  R_1 \quad
+\begin{bmatrix}
+	1 & 0 & \vline & -1 \\
+	0 & -1 & \vline & -2
+\end{bmatrix}\ldots
+ $$ 
+ $$ \ldots\implies \quad -R_2 \implies  R_2 
+\begin{bmatrix}
+	1 & 0 & \vline & -1 \\
+	0 & 1 & \vline & 2
+\end{bmatrix} \quad \therefore \quad  \boxed{C_1 = -1 \text{ and } C_2 = 2}.$$
+Plugging these into our general solution for this problem, $y_g(x)=C_1 e^x+C_2 e^{\frac{x}{2}}$,
+$$ \underline{\boxed{y_s(x) = 2e^{\frac{x}{2}} - e^{x}}} $$
+
+\pagebreak
+
+\subsection*{Problem 2.} Solve the differential equation:
+$$ x^2 y^{\prime \prime}-4 x y^{\prime}+6 y=0 \quad ; \quad x\neq0 \quad \text{where} \quad y_1(x) = x^2.$$
+\\
+ 
+Try it out before looking at the solution.
+\pagebreak
+ 
+ \subsubsection*{Solution to Problem 2:}
+ I should start off by saying that the solution to this problem will seem long. That is mainly because I am showing all steps and giving explanations. I strongly recommend working through a few of these problems to familiarize yourselves with the steps of this technique.\\
+ 
+ The differential equation comes with a given solution: $y_1(x).$ Because of this, we will use the reduction of order technique to solve the differential equation.\\
+ 
+ Feel free to use the formula that Dr. B gave us in Equation [\ref{reduction-of-order-formula}] and see if you get the same answer. It's probably much quicker than the way I do it.\\
+ 
+ By the way, if you use the formula, \textbf{DO NOT FORGET THE NEGATIVE SIGN IN THE EXPONENTIAL'S INTEGRAL}\\
+ 
+ \boxed{\textbf{The Formula}}------------------------------------------------------------------------------------------------
+$$
+ 	y_2 = y_1\int{\frac{e^{-\int pdx}}{y_1^2}}dx.
+$$
+ 
+ Your general solution will be the superposition of $y_1$ and $y_2$:
+ 
+ \begin{equation}
+ 	y_g(x) = C_1y_1 + C_2\left[y_1\int{\frac{e^{-\int pdx}}{y_1^2}}dx\right].\label{reduction-of-order-formula}
+ \end{equation}
+ \boxed{\textbf{End: The Formula}}--------------------------------------------------------------------------------------\\
+ \
+ 
+ The key to solving a differential equation with reduction of order is:
+ $$ y_2(x) = \mu(x)y_1(x). $$
+ To find what $\mu(x)$ and then $y_2(x)$ is, we will implicitly differentiate $y_2(x)$ and substitute it into our original differential equation. In most cases, it helps to first insert the value of $y_1(x)$ into $y_2(x)$. Doing this,
+ $$ y_2(x) = x^2\mu(x). $$
+ I'm leaving the $(x)$ part in $\mu$ and $y_2$ because it helps to see that both of these are functions of $x$ and not independent variables, themselves. Doing so will ensure that we take our derivatives properly.\\
+ 
+ After we differentiate, I'll change the notation, so that things are more compact. Differentiating both sides of $y_2(x)$ with respect to $x$,
+ $$ \frac{d}{dx}\left[y_2(x) = x^2\mu(x)\right] \quad\overset{\text{using product rule}}\implies \quad \underline{y^{\prime}_2(x) = 2x\mu(x) + x^2\mu^{\prime}(x)}.$$
+ Now we will do the same thing again to find the second derivative of $y_2(x)$. Note that we are using product rule.
+ $$ y^{\prime \prime}_2(x) = \frac{d}{dx}[y^{\prime}_2(x)] \quad\implies \quad y^{\prime \prime}_2(x) = 2\mu(x) + 2x\mu^{\prime}(x) + 2x\mu^{\prime}(x) + x^2\mu^{\prime \prime}(x) \quad\implies \ldots $$
+ $$\ldots\implies \quad \underline{y^{\prime \prime}_2(x) = 2\mu(x) + 4x\mu^{\prime}(x) + x^2\mu^{\prime \prime}(x)}. $$
+ 
+ From now on, for compactness sake, I'll be referring to $\mu(x)$ as $\mu$.  $y^{\prime}_2(x)$ and $y^{\prime \prime}_2(x)$ will likewise be called $y^{\prime}_2$ and $y^{\prime \prime}_2$, respectively.\\
+ 
+ With this renaming, we have:
+ 
+ $$ \underline{y_2 = x^2\mu} $$
+ $$ \underline{y^{\prime}_2 = 2x\mu + x^2\mu^{\prime} }  $$
+ $$ \underline{y^{\prime \prime}_2 = 2\mu + 4x\mu^{\prime} + x^2\mu^{\prime \prime}}. $$
+ With these forms of our second solution, we will plug them into our original differential equation: $x^2 y^{\prime \prime}-4 x y^{\prime}+6 y=0$.
+ Making the substitution, we have:
+ $$ x^2[2\mu + 4x\mu^{\prime} + x^2\mu^{\prime \prime}] -4x[2x\mu + x^2\mu^{\prime}] + 6[x^2\mu] = 0 \quad\implies \ldots$$
+ Let's distribute terms so that we can combine like terms.
+ $$\ldots\implies \quad 2x^2\mu + 4x^3\mu^{\prime} + x^4\mu^{\prime \prime} - 8x^2\mu - 4x^3\mu^{\prime} + 6x^2\mu = 0. $$
+ When doing this by hand, it helps to underline like terms in different styles.
+ $$ \underline{2x^2\mu} + \underline{\underline{4x^3\mu^{\prime}}} + \underline{\underline{\underline{x^4\mu^{\prime \prime}}}} - \underline{8x^2\mu} - \underline{\underline{4x^3\mu^{\prime}}} + \underline{6x^2\mu} = 0 $$
+ Let's combine our like terms now that it is clear. It should be noted that this is a place where a lot of mistakes are made. What we should be looking out for as confirmation that we've done things correctly is the vanishing of our $\mu$ term entirely. If we don't see that, we have a problem in our arithmetic.
+ $$ x^4\mu^{\prime \prime} = 0 .$$
+ The $\mu$ term vanished, which is a good sign. The $\mu^{\prime}$ term also vanished which is okay. Let's call $w^{\prime}$ = $\mu^{\prime \prime}$ and $w$ = $\mu^{\prime}$:
+ $$ x^4w^{\prime} = 0 \quad\implies \quad \frac{dw	}{dx} = 0.$$
+ This is separable differential equation. Let's think of what becomes zero when we take the derivative of it. It's a constant, $C_1$.
+ $$  w = C_1.$$
+ Now we remember that $w$ was renamed from $\mu^{\prime}$. Let's "unsubstitue":
+ $$ \mu^\prime = C_1 \quad\implies \quad \frac{d\mu}{dx} = C_1 \quad\implies \quad d\mu = C_1dx \quad\overset{\int}\implies \quad \underline{\mu = C_1x + K}. $$
+ We will let $K$ be 0. The explanation for doing this is because any constant times $y_1$ is already part of the general solution, making $K$ redundant. (It's the same reason for letting the constant of integration of $\int p(x)dx$ be 0 for the integrating factor in F.O.L equations).\\
+ 
+ We now have:
+ $$ \mu = C_1x. $$
+ To find $y_2$, we multiply $\mu$ by $y_1$ using:
+ $$ y_2(x) = \mu(x)y_1(x). $$
+ We then have:
+ $$ \underline{y_2(x) = C_1x^3.} $$
+ We are given:
+ $$ y_1(x) = x^2 $$
+ Let's put these two together to find the general solution (adding a constant $C_2$ to $y_1$)
+ $$ y_g(x) = y_1(x) + y_2(x) \quad\implies \quad \underline{\boxed{y_g(x) = C_1x^3 + C_2x^2}} $$
+ We could've been more careful in what we called our constant for $y_1$--for instance, making it $C_1$--with some forethought, but it really doesn't matter what our constants are called. We could just as correctly ended things with:
+ $$ \underline{\boxed{y_g(x) = \pumpkin x^3 + \mathghost x^2}} $$
+
+
+
+
+\end{document}
