@@ -1,106 +1,62 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 1. Document Class
+% 1. document class
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
- % The first command you will always have will declare your document class. This tells LaTeX what type of document you are creating (article, presentation, poster, etc). 
-% \documentclass is the command
-% in {} you specify the type of document
-% in [] you define additional parameters
- 
-\documentclass[a4paper,12pt]{article} % This defines the style of your paper
-
-% We usually use the article type. The additional parameters are the format of the paper you want to print it on and the standard font size. For us this is a4paper and 12pt.
+\documentclass[a4paper,12pt]{article} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 2. Packages
+% 2. packages
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Packages are libraries of commands that LaTeX can call when compiling the document. With the specialized commands you can customize the formatting of your document.
-% If the packages we call are not installed yet, TeXworks will ask you to install the necessary packages while compiling.
-
-% First, we usually want to set the margins of our document. For this we use the package geometry. We call the package with the \usepackage command. The package goes in the {}, the parameters again go into the [].
 \usepackage[top = 2.5cm, bottom = 2.5cm, left = 2.5cm, right = 2.5cm]{geometry} 
 
-% Unfortunately, LaTeX has a hard time interpreting German Umlaute. The following two lines and packages should help. If it doesn't work for you please let me know.
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{cancel}
 \usepackage{amssymb}
-\usepackage{halloweenmath}
-
-% The following two packages - multirow and booktabs - are needed to create nice looking tables.
-\usepackage{multirow} % Multirow is for tables with multiple rows within one cell.
-\usepackage{booktabs} % For even nicer tables.
-
-% As we usually want to include some plots (.pdf files) we need a package for that.
+\usepackage{multirow}
+\usepackage{booktabs}
 \usepackage{graphicx} 
-
-% The default setting of LaTeX is to indent new paragraphs. This is useful for articles. But not really nice for homework problem sets. The following command sets the indent to 0.
 \usepackage{setspace}
 \setlength{\parindent}{0in}
-
-% Package to place figures where you want them.
 \usepackage{float}
-
-% The fancyhdr package let's us create nice headers.
 \usepackage{fancyhdr}
-
-% Citing references will be hyperlinked and blue
 \usepackage[colorlinks=true,linkcolor=blue]{hyperref}
-
 \usepackage{amsmath}
-
 \usepackage{tikz}
+\usepackage{halloweenmath}
 \usetikzlibrary{tikzmark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 3. Header (and Footer)
+% 3. header (and footer)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% To make our document nice we want a header and number the pages in the footer.
+\pagestyle{fancy}
+\fancyhf{}
 
-\pagestyle{fancy} % With this command we can customize the header style.
-
-\fancyhf{} % This makes sure we do not have other information in our header or footer.
-
-\lhead{\footnotesize }% \lhead puts text in the top left corner. \footnotesize sets our font to a smaller size.
-
-%\rhead works just like \lhead (you can also use \chead)
-\rhead{\footnotesize Collins \thepage} %<---- Fill in your lastnames.
-
-% Similar commands work for the footer (\lfoot, \cfoot and \rfoot).
-% We want to put our page number in the center.
+\lhead{\footnotesize }
+\rhead{\footnotesize Collins \thepage}
 \cfoot{\footnotesize} 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 4. Your document
+% 4. the document
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Now, you need to tell LaTeX where your document starts. We do this with the \begin{document} command.
-% Like brackets every \begin{} command needs a corresponding \end{} command. We come back to this later.
 
 \begin{document}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Title section of the document
+% title section of the document
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% For the title section we want to reproduce the title section of the Problem Set and add your names.
+\thispagestyle{empty}
 
-\thispagestyle{empty} % This command disables the header on the first page. 
-
-\begin{tabular}{p{15.5cm}} % This is a simple tabular environment to align your text nicely 
+\begin{tabular}{p{15.5cm}}
 \\ Collin Collins \\
 MATH 3400\\
 SI Session 5 Practice Problems and Solutions\\
 17 February 2023 \\
-\hline % \hline produces horizontal lines.
+\hline
 
 \end{tabular} 
 
@@ -145,36 +101,36 @@ $$
 \end{itemize}
 
 Let's find our discriminant:
-$$ D = b^2 - 4ac \quad\implies \quad D = (-3)^2 - 4(2)(1) \quad\implies \quad D = 1\quad\implies \ldots$$
-$$\ldots\implies \quad \boxed{D > 0 \quad\therefore\quad y_g(x) = C_1e^{\lambda_1 x} + C_2e^{\lambda_2 x}} $$
+$$ D = b^2 - 4ac \quad\rightarrow \quad D = (-3)^2 - 4(2)(1) \quad\rightarrow \quad D = 1\quad\rightarrow \ldots$$
+$$\ldots\rightarrow \quad \boxed{D > 0 \quad\therefore\quad y_g(x) = C_1e^{\lambda_1 x} + C_2e^{\lambda_2 x}} $$
 Just like that we have the form of our general solution. To complete our answer, we simply need to find the roots of the quadratic in $\lambda$.
 $$ \lambda_{1,2} = \frac{-b \pm \sqrt{D}}{2a} $$
 Let's plug in our values:
-$$ \lambda_{1,2} = \frac{3 \pm 1}{4} \quad\implies\quad \boxed{\lambda_1 = 1 \quad ; \quad \lambda_2 = \frac{1}{2}} $$
+$$ \lambda_{1,2} = \frac{3 \pm 1}{4} \quad\rightarrow\quad \boxed{\lambda_1 = 1 \quad ; \quad \lambda_2 = \frac{1}{2}} $$
 With our roots, we will plug them into the form of the general solution to get the general solution to this particular problem:
 $$ \boxed{y_g(x) = C_1e^{x} + C_2e^{\frac{x}{2}}} $$
 Since we are given initial conditions, we should use them to determine our constants, $C_1$ and $C_2$.
-$$y(0)=1 \quad : \quad 1 = C_1(1) + C_2(1) \quad\implies \quad \underline{C_1 + C_2 = 1.}$$
+$$y(0)=1 \quad : \quad 1 = C_1(1) + C_2(1) \quad\rightarrow \quad \underline{C_1 + C_2 = 1.}$$
 Next we will take the derivative of the general solution to plug in the second initial condition, $y^\prime(0)=0.$
-$$ y^\prime(0)=0 \quad : \quad \frac{d}{dx}\left[y_g(x) = C_1e^{x} + C_2e^{\frac{x}{2}}\right] \quad\implies \quad y^\prime(x) = C_1e^x + \frac{1}{2}C_2e^{\frac{x}{2}} \quad \implies \ldots$$
-$$ \ldots\implies \quad 0 = C_1(1) + \frac{1}{2}C_2(1) \quad\implies \quad \underline{C_1 + \frac{1}{2}C_2 = 0.} $$
+$$ y^\prime(0)=0 \quad : \quad \frac{d}{dx}\left[y_g(x) = C_1e^{x} + C_2e^{\frac{x}{2}}\right] \quad\rightarrow \quad y^\prime(x) = C_1e^x + \frac{1}{2}C_2e^{\frac{x}{2}} \quad \rightarrow \ldots$$
+$$ \ldots\rightarrow \quad 0 = C_1(1) + \frac{1}{2}C_2(1) \quad\rightarrow \quad \underline{C_1 + \frac{1}{2}C_2 = 0.} $$
 Let's use an augmented matrix to solve this system:
 $$\begin{bmatrix}
 	1 & 1 & \vline & 1 \\
 	1 & \frac{1}{2} & \vline & 0
 \end{bmatrix} 
-\quad -R_1 + R_2 \implies  R_2 \quad 
+\quad -R_1 + R_2 \rightarrow  R_2 \quad 
 \begin{bmatrix}
 	1 & 1 & \vline & 1 \\
 	0 & -\frac{1}{2} & \vline & -1
 \end{bmatrix}
-\quad 2R_2 + R_1 \implies  R_1 \quad
+\quad 2R_2 + R_1 \rightarrow  R_1 \quad
 \begin{bmatrix}
 	1 & 0 & \vline & -1 \\
 	0 & -1 & \vline & -2
 \end{bmatrix}\ldots
  $$ 
- $$ \ldots\implies \quad -R_2 \implies  R_2 
+ $$ \ldots\rightarrow \quad -R_2 \rightarrow  R_2 
 \begin{bmatrix}
 	1 & 0 & \vline & -1 \\
 	0 & 1 & \vline & 2
@@ -220,10 +176,10 @@ $$
  I'm leaving the $(x)$ part in $\mu$ and $y_2$ because it helps to see that both of these are functions of $x$ and not independent variables, themselves. Doing so will ensure that we take our derivatives properly.\\
  
  After we differentiate, I'll change the notation, so that things are more compact. Differentiating both sides of $y_2(x)$ with respect to $x$,
- $$ \frac{d}{dx}\left[y_2(x) = x^2\mu(x)\right] \quad\overset{\text{using product rule}}\implies \quad \underline{y^{\prime}_2(x) = 2x\mu(x) + x^2\mu^{\prime}(x)}.$$
+ $$ \frac{d}{dx}\left[y_2(x) = x^2\mu(x)\right] \quad\overset{\text{using product rule}}\rightarrow \quad \underline{y^{\prime}_2(x) = 2x\mu(x) + x^2\mu^{\prime}(x)}.$$
  Now we will do the same thing again to find the second derivative of $y_2(x)$. Note that we are using product rule.
- $$ y^{\prime \prime}_2(x) = \frac{d}{dx}[y^{\prime}_2(x)] \quad\implies \quad y^{\prime \prime}_2(x) = 2\mu(x) + 2x\mu^{\prime}(x) + 2x\mu^{\prime}(x) + x^2\mu^{\prime \prime}(x) \quad\implies \ldots $$
- $$\ldots\implies \quad \underline{y^{\prime \prime}_2(x) = 2\mu(x) + 4x\mu^{\prime}(x) + x^2\mu^{\prime \prime}(x)}. $$
+ $$ y^{\prime \prime}_2(x) = \frac{d}{dx}[y^{\prime}_2(x)] \quad\rightarrow \quad y^{\prime \prime}_2(x) = 2\mu(x) + 2x\mu^{\prime}(x) + 2x\mu^{\prime}(x) + x^2\mu^{\prime \prime}(x) \quad\rightarrow \ldots $$
+ $$\ldots\rightarrow \quad \underline{y^{\prime \prime}_2(x) = 2\mu(x) + 4x\mu^{\prime}(x) + x^2\mu^{\prime \prime}(x)}. $$
  
  From now on, for compactness sake, I'll be referring to $\mu(x)$ as $\mu$.  $y^{\prime}_2(x)$ and $y^{\prime \prime}_2(x)$ will likewise be called $y^{\prime}_2$ and $y^{\prime \prime}_2$, respectively.\\
  
@@ -234,19 +190,19 @@ $$
  $$ \underline{y^{\prime \prime}_2 = 2\mu + 4x\mu^{\prime} + x^2\mu^{\prime \prime}}. $$
  With these forms of our second solution, we will plug them into our original differential equation: $x^2 y^{\prime \prime}-4 x y^{\prime}+6 y=0$.
  Making the substitution, we have:
- $$ x^2[2\mu + 4x\mu^{\prime} + x^2\mu^{\prime \prime}] -4x[2x\mu + x^2\mu^{\prime}] + 6[x^2\mu] = 0 \quad\implies \ldots$$
+ $$ x^2[2\mu + 4x\mu^{\prime} + x^2\mu^{\prime \prime}] -4x[2x\mu + x^2\mu^{\prime}] + 6[x^2\mu] = 0 \quad\rightarrow \ldots$$
  Let's distribute terms so that we can combine like terms.
- $$\ldots\implies \quad 2x^2\mu + 4x^3\mu^{\prime} + x^4\mu^{\prime \prime} - 8x^2\mu - 4x^3\mu^{\prime} + 6x^2\mu = 0. $$
+ $$\ldots\rightarrow \quad 2x^2\mu + 4x^3\mu^{\prime} + x^4\mu^{\prime \prime} - 8x^2\mu - 4x^3\mu^{\prime} + 6x^2\mu = 0. $$
  When doing this by hand, it helps to underline like terms in different styles.
  $$ \underline{2x^2\mu} + \underline{\underline{4x^3\mu^{\prime}}} + \underline{\underline{\underline{x^4\mu^{\prime \prime}}}} - \underline{8x^2\mu} - \underline{\underline{4x^3\mu^{\prime}}} + \underline{6x^2\mu} = 0 $$
  Let's combine our like terms now that it is clear. It should be noted that this is a place where a lot of mistakes are made. What we should be looking out for as confirmation that we've done things correctly is the vanishing of our $\mu$ term entirely. If we don't see that, we have a problem in our arithmetic.
  $$ x^4\mu^{\prime \prime} = 0 .$$
  The $\mu$ term vanished, which is a good sign. The $\mu^{\prime}$ term also vanished which is okay. Let's call $w^{\prime}$ = $\mu^{\prime \prime}$ and $w$ = $\mu^{\prime}$:
- $$ x^4w^{\prime} = 0 \quad\implies \quad \frac{dw	}{dx} = 0.$$
+ $$ x^4w^{\prime} = 0 \quad\rightarrow \quad \frac{dw	}{dx} = 0.$$
  This is separable differential equation. Let's think of what becomes zero when we take the derivative of it. It's a constant, $C_1$.
  $$  w = C_1.$$
  Now we remember that $w$ was renamed from $\mu^{\prime}$. Let's "unsubstitue":
- $$ \mu^\prime = C_1 \quad\implies \quad \frac{d\mu}{dx} = C_1 \quad\implies \quad d\mu = C_1dx \quad\overset{\int}\implies \quad \underline{\mu = C_1x + K}. $$
+ $$ \mu^\prime = C_1 \quad\rightarrow \quad \frac{d\mu}{dx} = C_1 \quad\rightarrow \quad d\mu = C_1dx \quad\overset{\int}\rightarrow \quad \underline{\mu = C_1x + K}. $$
  We will let $K$ be 0. The explanation for doing this is because any constant times $y_1$ is already part of the general solution, making $K$ redundant. (It's the same reason for letting the constant of integration of $\int p(x)dx$ be 0 for the integrating factor in F.O.L equations).\\
  
  We now have:
@@ -258,7 +214,7 @@ $$
  We are given:
  $$ y_1(x) = x^2 $$
  Let's put these two together to find the general solution (adding a constant $C_2$ to $y_1$)
- $$ y_g(x) = y_1(x) + y_2(x) \quad\implies \quad \underline{\boxed{y_g(x) = C_1x^3 + C_2x^2}} $$
+ $$ y_g(x) = y_1(x) + y_2(x) \quad\rightarrow \quad \underline{\boxed{y_g(x) = C_1x^3 + C_2x^2}} $$
  We could've been more careful in what we called our constant for $y_1$--for instance, making it $C_1$--with some forethought, but it really doesn't matter what our constants are called. We could just as correctly ended things with:
  $$ \underline{\boxed{y_g(x) = \pumpkin x^3 + \mathghost x^2}} $$
 
