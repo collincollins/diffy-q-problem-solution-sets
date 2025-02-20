@@ -2,3 +2,9 @@
 .DS_Store
 
 practice-exams/
+*.fdb_latexmk
+*.aux
+*.fls
+*.log
+*.out
+*.gz
