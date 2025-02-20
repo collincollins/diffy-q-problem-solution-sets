@@ -1,105 +1,61 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 1. Document Class
+% 1. document class
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
- % The first command you will always have will declare your document class. This tells LaTeX what type of document you are creating (article, presentation, poster, etc). 
-% \documentclass is the command
-% in {} you specify the type of document
-% in [] you define additional parameters
- 
-\documentclass[a4paper,12pt]{article} % This defines the style of your paper
-
-% We usually use the article type. The additional parameters are the format of the paper you want to print it on and the standard font size. For us this is a4paper and 12pt.
+\documentclass[a4paper,12pt]{article} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 2. Packages
+% 2. packages
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Packages are libraries of commands that LaTeX can call when compiling the document. With the specialized commands you can customize the formatting of your document.
-% If the packages we call are not installed yet, TeXworks will ask you to install the necessary packages while compiling.
-
-% First, we usually want to set the margins of our document. For this we use the package geometry. We call the package with the \usepackage command. The package goes in the {}, the parameters again go into the [].
 \usepackage[top = 2.5cm, bottom = 2.5cm, left = 2.5cm, right = 2.5cm]{geometry} 
 
-% Unfortunately, LaTeX has a hard time interpreting German Umlaute. The following two lines and packages should help. If it doesn't work for you please let me know.
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{cancel}
 \usepackage{amssymb}
-
-% The following two packages - multirow and booktabs - are needed to create nice looking tables.
-\usepackage{multirow} % Multirow is for tables with multiple rows within one cell.
-\usepackage{booktabs} % For even nicer tables.
-
-% As we usually want to include some plots (.pdf files) we need a package for that.
+\usepackage{multirow}
+\usepackage{booktabs}
 \usepackage{graphicx} 
-
-% The default setting of LaTeX is to indent new paragraphs. This is useful for articles. But not really nice for homework problem sets. The following command sets the indent to 0.
 \usepackage{setspace}
 \setlength{\parindent}{0in}
-
-% Package to place figures where you want them.
 \usepackage{float}
-
-% The fancyhdr package let's us create nice headers.
 \usepackage{fancyhdr}
-
-% Citing references will be hyperlinked and blue
 \usepackage[colorlinks=true,linkcolor=blue]{hyperref}
-
 \usepackage{amsmath}
-
 \usepackage{tikz}
 \usetikzlibrary{tikzmark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 3. Header (and Footer)
+% 3. header (and footer)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% To make our document nice we want a header and number the pages in the footer.
+\pagestyle{fancy}
+\fancyhf{}
 
-\pagestyle{fancy} % With this command we can customize the header style.
-
-\fancyhf{} % This makes sure we do not have other information in our header or footer.
-
-\lhead{\footnotesize }% \lhead puts text in the top left corner. \footnotesize sets our font to a smaller size.
-
-%\rhead works just like \lhead (you can also use \chead)
-\rhead{\footnotesize Collins \thepage} %<---- Fill in your lastnames.
-
-% Similar commands work for the footer (\lfoot, \cfoot and \rfoot).
-% We want to put our page number in the center.
+\lhead{\footnotesize }
+\rhead{\footnotesize Collins \thepage}
 \cfoot{\footnotesize} 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 4. Your document
+% 4. the document
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Now, you need to tell LaTeX where your document starts. We do this with the \begin{document} command.
-% Like brackets every \begin{} command needs a corresponding \end{} command. We come back to this later.
 
 \begin{document}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Title section of the document
+% title section of the document
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% For the title section we want to reproduce the title section of the Problem Set and add your names.
+\thispagestyle{empty}
 
-\thispagestyle{empty} % This command disables the header on the first page. 
-
-\begin{tabular}{p{15.5cm}} % This is a simple tabular environment to align your text nicely 
+\begin{tabular}{p{15.5cm}}
 \\ Collin Collins \\
 MATH 3400\\
 SI Session 2 Practice Problems and Solutions\\
 6 February 2023 \\
-\hline % \hline produces horizontal lines.
+\hline
 
 \end{tabular} 
 
@@ -128,7 +84,7 @@ $$ y'(x) + p(x)y(x) = f(x). $$
 
 Where $p(x$) is some function involving only $x$, and $f(x$) is also a function involving only $x$. Our differential equation will need to be reworked to fit this form. Let's start rearranging:
 
-$$ y' = \frac{(2x+1 - y)}{x} \quad\implies\quad xy' + y = 2x+1 \quad\implies\quad y' + \frac{1}{x}y = \frac{2x + 1}{x}.   $$
+$$ y' = \frac{(2x+1 - y)}{x} \quad\rightarrow\quad xy' + y = 2x+1 \quad\rightarrow\quad y' + \frac{1}{x}y = \frac{2x + 1}{x}.   $$
 Here, $p(x) = \frac{1}{x}$ and $f(x) = \frac{2x + 1}{x}$. We can now proceed with solving this as a FOL equation. Let's write the keys to this solution technique.
 
 $$ \mu(x) \equiv e^{\int p(x) dx} \quad;\quad \mu(x)y(x) = \int \mu(x)f(x)dx .$$
@@ -140,20 +96,20 @@ By the way... When finding the integral of $p(x)$, we always let our constant of
 
 Now, we can write $\mu(x)$:
 
-$$ \mu(x) \equiv e^{\int p(x) dx} \quad\implies\quad \mu(x) = e^{ln{|x|}} \quad\implies\quad \mu(x) = x. $$
+$$ \mu(x) \equiv e^{\int p(x) dx} \quad\rightarrow\quad \mu(x) = e^{ln{|x|}} \quad\rightarrow\quad \mu(x) = x. $$
 Since we have that $\mu(x) = x$ and $f(x) = \frac{2x + 1}{x}$, we can use our key to solving FOL:
 
-$$ \mu(x)y(x) = \int \mu(x) f(x) dx \quad\implies\quad \mu y = \int \left[x\right]\left[\frac{2x + 1}{x}\right]dx \quad\implies\ldots $$
-$$ \ldots\quad\implies \mu y = \int (2x + 1)dx \quad\implies\quad \mu y = x^2 + x + C.$$
+$$ \mu(x)y(x) = \int \mu(x) f(x) dx \quad\rightarrow\quad \mu y = \int \left[x\right]\left[\frac{2x + 1}{x}\right]dx \quad\rightarrow\ldots $$
+$$ \ldots\quad\rightarrow \mu y = \int (2x + 1)dx \quad\rightarrow\quad \mu y = x^2 + x + C.$$
 I'll take a moment here to talk about some things. You probably noticed that I dropped the "of $x$" notation on the $\mu(x)$ and $y(x)$. That's just to save space, and because it look prettier. It is understood that these are both functions of $x$, so it isn't necessary to state that explicitly.\\
 
 Another thing that you may have noticed is that I still haven't substituted in the value of $\mu$ on the left-hand side of the equation. This is because \textbf{dividing by $\mu$ to solve for $y$ is the last thing we will do.} Let's do that now.
 
-$$ y = \frac{1}{x}[x^2 + x + C] \quad\implies\quad y_g(x) = x + 1 + \frac{C}{x}.$$
+$$ y = \frac{1}{x}[x^2 + x + C] \quad\rightarrow\quad y_g(x) = x + 1 + \frac{C}{x}.$$
 
-\textbf{DO NOT RENAME $C$ IF IT IS MULTIPLIED, DIVIDED, OR EXPONENTIATED WITH YOUR INDEPENDENT VARIABLE.} Now, let's use our initial condition to find $C$.
+\textbf{DO NOT RENAME $C$ IF IT IS MULTIPLIED, DIVIDED, OR EXPONENTIATED WITH YOUR INDEPENDENT VARIABLE (this is just a recommendation).} Now, let's use our initial condition to find $C$.
 
-$$ y(1)=8 \quad;\quad 8 = 1 + 1 + C \quad\implies\quad C = 6. $$
+$$ y(1)=8 \quad;\quad 8 = 1 + 1 + C \quad\rightarrow\quad C = 6. $$
 $$ \underline{\boxed{y_s(x) = x + \frac{6}{x} + 1}} $$
 
 \pagebreak
@@ -183,7 +139,7 @@ This is the key to tank problems.\\
 
 $\boxed{\textbf{Quick Note on Symbols:}}$--------------------------------------------------------------------
 
-The triple equals sign means \textit{defined as}. In this case, $\frac{dQ}{dt}$ is a function that is defined as $r_{in}c_{in} - r_{out}c_{out}$.\\
+The triple equals sign means \textit{defined as} (sorry mathematicians). In this case, $\frac{dQ}{dt}$ is a function that is defined as $r_{in}c_{in} - r_{out}c_{out}$.\\
 
 The tribar is different from the equals sign---at least in the way that I use it---because I like to use the equals sign as saying \textit{the stuff over here is the same as the stuff over there}; whereas, the tribar is reserved for the most important \textit{definitions}.\\
 
@@ -199,18 +155,18 @@ $$\left\{\begin{array}{ll}V_o=50 & Q_o=0 \\ V_{\text {max }}=200 & V(t)=t+50 \\ 
 Here's an explanation for some of the trickier ones:\\
 
 The volume as a function of time, $V(t)$, is the net amount of liquid flowing in or out multiplied by the time, $t$, plus the initial volume.
-$$ V(t) \equiv (r_{in} - r_{out})t + V_o \quad\implies\quad V(t) = t + 50.
+$$ V(t) \equiv (r_{in} - r_{out})t + V_o \quad\rightarrow\quad V(t) = t + 50.
 $$
 The concentration of solution coming out of the tank, $c_{out}$, changes over time. It is the ratio of however much salt is in the tank at a particular time to however much liquid is in the tank at a particular time.\\
 
 As an additional exercise, try checking the units for this formula. The units of the lefthand side should match the units of the right-hand side.
 $$ 
- c_{out} \equiv \frac{Q(t)}{V(t)} \quad\implies\quad  c_{out} = \frac{Q(t)}{t + 50}.
+ c_{out} \equiv \frac{Q(t)}{V(t)} \quad\rightarrow\quad  c_{out} = \frac{Q(t)}{t + 50}.
 $$
 
 Let's substitute our known quantities into Equation~\ref{key_to_tank}:
 
-$$ \frac{dQ}{dt} = (5)(6) - (4) \left(\frac{Q(t)}{t + 50}\right) \quad\implies\quad \frac{dQ}{dt} = 30 - \frac{4}{t + 50}Q(t).
+$$ \frac{dQ}{dt} = (5)(6) - (4) \left(\frac{Q(t)}{t + 50}\right) \quad\rightarrow\quad \frac{dQ}{dt} = 30 - \frac{4}{t + 50}Q(t).
  $$
 
 We are now going to move some terms around and play spot-the-differential-equation:
@@ -238,16 +194,16 @@ Sorry for yelling. I'm going to make a recommendation of what to do based on how
 
 Bring the coefficient of 4 to the inside of the natural log as a power of the argument. This will make our integrating factor look pretty. Here's what that looks like:
 
-$$  4\ln{(t + 50)} \quad\implies\quad \ln{([t + 50]^4)}. $$
-$$\mu(t) \equiv e^{\int p(t)dt}\quad\implies\quad \mu(t) = e^{\ln{([t + 50]^4)}} \quad\implies\quad \mu(t) = [t+50]^4.
+$$  4\ln{(t + 50)} \quad\rightarrow\quad \ln{([t + 50]^4)}. $$
+$$\mu(t) \equiv e^{\int p(t)dt}\quad\rightarrow\quad \mu(t) = e^{\ln{([t + 50]^4)}} \quad\rightarrow\quad \mu(t) = [t+50]^4.
  $$
 $\boxed{\textbf{End IMPORTANT NOTE}}$--------------------------------------------------------------------------\\
 
 Cool! With our integrating factor, we can plug everything into our FOL formula:
 
-$$ \mu(t) Q(t)=\int \mu(t) f(t) d t \quad\implies\quad \mu(t) Q(t)=\int[t+50]^4(30) d t \quad\implies\ldots
+$$ \mu(t) Q(t)=\int \mu(t) f(t) d t \quad\rightarrow\quad \mu(t) Q(t)=\int[t+50]^4(30) d t \quad\rightarrow\ldots
  $$
- $$ \ldots\implies\quad \mu(t) Q(t)=\frac{30}{5}[t+50]^5+C \quad \underbrace{\implies}_{\text{divide by $\mu(t)$}} \quad Q(t)=\frac{30[t+50]^5}{5[t+50]^4}+\frac{C}{[t+50]^4},
+ $$ \ldots\rightarrow\quad \mu(t) Q(t)=\frac{30}{5}[t+50]^5+C \quad \underbrace{\rightarrow}_{\text{divide by $\mu(t)$}} \quad Q(t)=\frac{30[t+50]^5}{5[t+50]^4}+\frac{C}{[t+50]^4},
  $$
  
  Note, that anytime our constant of integration, $C$ is tied up with our independent variable, $t$, it must remain that way (we can't call $\frac{C}{[t+50]^4}$ another constant like $A$ or $C_2$).\\
@@ -275,7 +231,7 @@ $\boxed{\textbf{End IMPORTANT NOTE}}$-------------------------------------------
 
 Let's try out this technique: Q(t=0)=0 is the ordered pair: (t=0, Q=0). Let's plug those numbers into our general solution and solve for $C$:
 
-$$ (t=0,Q=0)\quad:\quad 0 = 6([0] + 50) + \frac{C}{([0] + 50)^4} \quad\implies\quad  -6 (50) = \frac{C}{50^4}\quad\implies\quad C = -6[50^5].
+$$ (t=0,Q=0)\quad:\quad 0 = 6([0] + 50) + \frac{C}{([0] + 50)^4} \quad\rightarrow\quad  -6 (50) = \frac{C}{50^4}\quad\rightarrow\quad C = -6[50^5].
  $$
 We can't use calculators on the exam. If the arithmetic takes more than a few seconds, just leave it as is. It's perfectly acceptable, but more importantly just as true.\\
 
@@ -287,12 +243,12 @@ We're almost done.\\
 
 The problem wants us to find the amount of salt in the tank when the tank is full of liquid. The time that it takes for this to occur is denoted by $t^*$ and is the time at which the volume is equal to carrying capacity of the tank.
 
-$$ V\left(t^*\right)=V_{max} \quad ; \quad t^*+50=\underbrace{200}_{V_{max}} \quad \implies \quad t^*=150 \text { mins} . $$
+$$ V\left(t^*\right)=V_{max} \quad ; \quad t^*+50=\underbrace{200}_{V_{max}} \quad \rightarrow \quad t^*=150 \text { mins} . $$
 
 Last step. So with this time, $t^*$, we plug it into our specific solution of the differential equation, which accepts time in minutes as an input and outputs the quantity of salt in kilograms.
 
 $$
-Q_s\left(t^*\right)=Q_{\text {full }} \quad; \quad Q_s(150)=6([150]+50)-\frac{6(50)^5}{([150]+50)^4} \implies \ldots$$
+Q_s\left(t^*\right)=Q_{\text {full }} \quad; \quad Q_s(150)=6([150]+50)-\frac{6(50)^5}{([150]+50)^4} \rightarrow \ldots$$
 $$
 \underline{\boxed{Q_{\text {full }}=1200-\frac{6(50)^5}{(200)^4} \mathrm{~kg}}} $$
 
@@ -326,14 +282,14 @@ Q_{o_{\text{new}}}=?
 $$
 Now, let's write the equation for $Q'_{\text{new}}(t)$:
 
-$$ Q'_{\text{prelim.}}(t) = 5(6) - 0\left(\frac{Q_{\text{prelim.}}(t)}{5t + 50}\right) \quad\implies\quad Q'_{\text{prelim.}}(t) = 30 . $$
+$$ Q'_{\text{prelim.}}(t) = 5(6) - 0\left(\frac{Q_{\text{prelim.}}(t)}{5t + 50}\right) \quad\rightarrow\quad Q'_{\text{prelim.}}(t) = 30 . $$
 
 What does this mean? This says that the rate at which the amount of salt is changing is constant. To find a function for $Q_{\text{prelim.}}$, we will integrate both sides:
 
-$$ \frac{dQ_{\text{prelim.}}}{dt} = 30 \quad\implies\quad dQ_{\text{prelim.}} = 30dt \quad\overset{\int}\implies Q_{\text{prelim.}} = 30t + C. $$
+$$ \frac{dQ_{\text{prelim.}}}{dt} = 30 \quad\rightarrow\quad dQ_{\text{prelim.}} = 30dt \quad\overset{\int}\rightarrow Q_{\text{prelim.}} = 30t + C. $$
 Here, it's important to think about what initial condition we will use to solve for the constant, $C$. This is the initial amount of salt when we begin our 5 minute run. If we begin the flow into a tank of pure water, then $Q_{o}=0$.
 
-$$ Q_o = 0 \quad:\quad 0 = 30 (0) + C \quad\implies\quad C = 0. $$
+$$ Q_o = 0 \quad:\quad 0 = 30 (0) + C \quad\rightarrow\quad C = 0. $$
 That's nice. This lets us write the specific solution for the amount of salt which comes from the preliminary inflow.
 $$
 Q_{s_{\text{prelim.}}} = 30t.
@@ -360,31 +316,31 @@ $$
 Okay, so we are at step one. We just did step zero by finding the new initial conditions of our system after a 5 minute preliminary filling. We will solve this just as we solved the original problem (this time with new numbers):
 
 $$ \frac{dQ}{dt} \equiv r_{in}c_{in} - r_{out}c_{out}. $$
-$$ Q' = 5(6) - 4\left(\frac{Q}{t + 75}\right) \quad\implies\quad Q' + \frac{4}{t + 75}Q = 30. $$
+$$ Q' = 5(6) - 4\left(\frac{Q}{t + 75}\right) \quad\rightarrow\quad Q' + \frac{4}{t + 75}Q = 30. $$
 This is a FOL equation where $p(t) = \frac{4}{t + 75}$ and $f(t) = 30$. Let's integrate $p(t)$ in order to determine our integrating factor $\mu(t)$.
-$$ \int p(t) dt = 4\int\frac{1}{t + 75}dt \quad\implies\quad \int p(t)dt = 4\ln{(t + 75)} \quad\implies\ldots  $$
-$$ \ldots\quad\implies \int p(t)dt = \ln{([t + 75]^4)}. $$
+$$ \int p(t) dt = 4\int\frac{1}{t + 75}dt \quad\rightarrow\quad \int p(t)dt = 4\ln{(t + 75)} \quad\rightarrow\ldots  $$
+$$ \ldots\quad\rightarrow \int p(t)dt = \ln{([t + 75]^4)}. $$
 Since $\mu(t) \equiv e^{\int p(t) dt}$,
 $$ \mu(t) = e^{\ln{([t + 75]^4)}} \quad\therefore\quad \mu(t) = [t+75]^4 $$
 Let's be reminded of the key to FOL equations:
 $$ \mu Q = \int \mu f dt. $$
 I removed the "of t" notation just to make it more memorable. We'll continue working.
-$$ \mu Q = 30\int(t + 75)^4dt  \quad\implies\quad \mu Q = \frac{30}{5}\left[t + 75\right]^5 + C. $$
+$$ \mu Q = 30\int(t + 75)^4dt  \quad\rightarrow\quad \mu Q = \frac{30}{5}\left[t + 75\right]^5 + C. $$
 Dividing both sides by $\mu = [t + 75]^4$.
-$$ Q = \frac{6[t+75]^5}{[t+75]^4} + \frac{C}{[t + 75]^4} \quad\implies\quad \boxed{Q_g(t) = 6(t+75) + \frac{C}{(t + 45)^4}} $$
+$$ Q = \frac{6[t+75]^5}{[t+75]^4} + \frac{C}{[t + 75]^4} \quad\rightarrow\quad \boxed{Q_g(t) = 6(t+75) + \frac{C}{(t + 45)^4}} $$
 This is an important step, but not the final answer. This is only the general solution. Let's use our initial condition: $Q_{o_{\text{new}}}=150$ kg to find the specific solution:
-$$ Q_{o_{\text{new}}}=150 \quad:\quad 150 = 6([0] + 75) + \frac{C}{([0] + 75)^4} \quad\implies\quad 150 - 6(75) = \frac{C}{(75)^4} \quad\implies\ldots$$
-$$ \ldots\implies\quad C = 150(75)^4 - 6(75)^5. $$
+$$ Q_{o_{\text{new}}}=150 \quad:\quad 150 = 6([0] + 75) + \frac{C}{([0] + 75)^4} \quad\rightarrow\quad 150 - 6(75) = \frac{C}{(75)^4} \quad\rightarrow\ldots$$
+$$ \ldots\rightarrow\quad C = 150(75)^4 - 6(75)^5. $$
 With our value for $C$, let's find our specific solution:
 $$ \boxed{Q_{s}(t) = 6(t + 75) + \frac{150(75)^4 - 6(75)^5}{(t + 75)^4}} $$
 Once again, this is an important result, but it isn't our final answer. Our final answer needs to be the amount of salt when the tank is full. To determine the time it takes to fill our tank $t^*$, we will use our volume function $V(t)$:
 $$
- V\left(t^*\right)=V_{max} \quad ; \quad t^*+75=\underbrace{200}_{V_{max}} \quad \implies \quad t^*=125 \text { mins} . 
+ V\left(t^*\right)=V_{max} \quad ; \quad t^*+75=\underbrace{200}_{V_{max}} \quad \rightarrow \quad t^*=125 \text { mins} . 
  $$
  We plug this value of $t$ into the specific solution and that gives the amount of salt after enough time has passed for the tank to be full:
  
- $$ Q_s(t^*) = 6([125] + 75) + \frac{150(75)^4 - 6(75)^5}{([125] + 75)^4} \quad\implies\ldots $$
- $$ \ldots\implies\quad \underline{\boxed{Q_{\text{full}} = 6(200) + \frac{150(75)^4 - 6(75)^5}{200^4} \mathrm{~kg}}} $$\\
+ $$ Q_s(t^*) = 6([125] + 75) + \frac{150(75)^4 - 6(75)^5}{([125] + 75)^4} \quad\rightarrow\ldots $$
+ $$ \ldots\rightarrow\quad \underline{\boxed{Q_{\text{full}} = 6(200) + \frac{150(75)^4 - 6(75)^5}{200^4} \mathrm{~kg}}} $$\\
 
 That was fun! If you made it to this point, you're doing good! Maybe now we could think about what our results mean.\\
 
