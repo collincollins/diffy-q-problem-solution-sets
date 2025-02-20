@@ -1,99 +1,52 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 1. Document Class
+% 1. document class
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
- % The first command you will always have will declare your document class. This tells LaTeX what type of document you are creating (article, presentation, poster, etc). 
-% \documentclass is the command
-% in {} you specify the type of document
-% in [] you define additional parameters
- 
-\documentclass[a4paper,12pt]{article} % This defines the style of your paper
-
-% We usually use the article type. The additional parameters are the format of the paper you want to print it on and the standard font size. For us this is a4paper and 12pt.
+\documentclass[a4paper,12pt]{article} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 2. Packages
+% 2. packages
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Packages are libraries of commands that LaTeX can call when compiling the document. With the specialized commands you can customize the formatting of your document.
-% If the packages we call are not installed yet, TeXworks will ask you to install the necessary packages while compiling.
-
-% First, we usually want to set the margins of our document. For this we use the package geometry. We call the package with the \usepackage command. The package goes in the {}, the parameters again go into the [].
 \usepackage[top = 2.5cm, bottom = 2.5cm, left = 2.5cm, right = 2.5cm]{geometry} 
 
-% Unfortunately, LaTeX has a hard time interpreting German Umlaute. The following two lines and packages should help. If it doesn't work for you please let me know.
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{cancel}
 \usepackage{amssymb}
-
-\usepackage{pgfplots}
-
-
-% The following two packages - multirow and booktabs - are needed to create nice looking tables.
-\usepackage{multirow} % Multirow is for tables with multiple rows within one cell.
-\usepackage{booktabs} % For even nicer tables.
-
-% As we usually want to include some plots (.pdf files) we need a package for that.
+\usepackage{multirow}
+\usepackage{booktabs}
 \usepackage{graphicx} 
-
-% The default setting of LaTeX is to indent new paragraphs. This is useful for articles. But not really nice for homework problem sets. The following command sets the indent to 0.
 \usepackage{setspace}
 \setlength{\parindent}{0in}
-
-% Package to place figures where you want them.
 \usepackage{float}
-
-% The fancyhdr package let's us create nice headers.
 \usepackage{fancyhdr}
-
-% Citing references will be hyperlinked and blue
 \usepackage[colorlinks=true,linkcolor=blue]{hyperref}
-
 \usepackage{amsmath}
-
 \usepackage{tikz}
 \usetikzlibrary{tikzmark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 3. Header (and Footer)
+% 3. header (and footer)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% To make our document nice we want a header and number the pages in the footer.
+\pagestyle{fancy}
+\fancyhf{}
 
-\pagestyle{fancy} % With this command we can customize the header style.
-
-\fancyhf{} % This makes sure we do not have other information in our header or footer.
-
-\lhead{\footnotesize }% \lhead puts text in the top left corner. \footnotesize sets our font to a smaller size.
-
-%\rhead works just like \lhead (you can also use \chead)
-\rhead{\footnotesize Collins \thepage} %<---- Fill in your lastnames.
-
-% Similar commands work for the footer (\lfoot, \cfoot and \rfoot).
-% We want to put our page number in the center.
+\lhead{\footnotesize }
+\rhead{\footnotesize Collins \thepage}
 \cfoot{\footnotesize} 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 4. Your document
+% 4. the document
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Now, you need to tell LaTeX where your document starts. We do this with the \begin{document} command.
-% Like brackets every \begin{} command needs a corresponding \end{} command. We come back to this later.
 
 \begin{document}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% title section of the document
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Title section of the document
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% For the title section we want to reproduce the title section of the Problem Set and add your names.
 
 \thispagestyle{empty} % This command disables the header on the first page. 
 
@@ -120,13 +73,13 @@ Much like other techniques, we will begin with a guess of our solution. This tim
 $$ y_{\text{guess}}(x) = \sum_{n=0}^{\infty} c_nx^n. $$
 
 We can differentiate and integrate a power series term-by-term, so let's do that for our guess in order to write our differential equation as a sum of power series.
-$$ y_{\text{guess}}'(x) = \frac{d}{dx}\left[\sum_{n=0}^{\infty} c_nx^n\right] \quad\implies\quad y_{\text{guess}}'(x) = \sum_{n=1}^{\infty} (n)c_nx^{n-1}. $$
+$$ y_{\text{guess}}'(x) = \frac{d}{dx}\left[\sum_{n=0}^{\infty} c_nx^n\right] \quad\rightarrow\quad y_{\text{guess}}'(x) = \sum_{n=1}^{\infty} (n)c_nx^{n-1}. $$
 We begin our derivative's series at $n=1$ because the 0$^{\text{th}}$ term is 0:
 $$ y_{\text{guess}}(x) = \underbrace{c_0}_{n=0} + \underbrace{c_1x}_{n=1} + \underbrace{c_2x^2}_{n=2}+\ldots $$
 $$ y_{\text{guess}}'(x) = \underbrace{0}_{n=0} + \underbrace{c_1}_{n=1} + \underbrace{2c_2x}_{n=2} +\ldots $$
 
 Next, we find the second derivative of our solution form (which will begin at $n=2$).
-$$ y_{\text{guess}}''(x) = \frac{d}{dx}\left[\sum_{n=1}^{\infty} (n)c_nx^{n-1}\right] \quad\implies\quad y_{\text{guess}}''(x)= \sum_{n=2}^{\infty} (n-1)(n)c_nx^{n-2}. $$
+$$ y_{\text{guess}}''(x) = \frac{d}{dx}\left[\sum_{n=1}^{\infty} (n)c_nx^{n-1}\right] \quad\rightarrow\quad y_{\text{guess}}''(x)= \sum_{n=2}^{\infty} (n-1)(n)c_nx^{n-2}. $$
 We now have the following representations of our guess and their derivatives:
 $$ y_{\text{guess}}(x) = \sum_{n=0}^{\infty} c_nx^n. $$
 $$ y_{\text{guess}}'(x) = \sum_{n=1}^{\infty} (n)c_nx^{n-1}. $$
@@ -150,7 +103,7 @@ $\boxed{\underline{\text{IMPORTANT NOTE}}}:$\\
  
 Since we don't distribute anything to this power series, we can reindex immediately:
 $$ \text{Let }k = n-2 \text{, implying } n = k+2. $$
-$$ \sum_{n=2}^{\infty} (n-1)(n)c_nx^{n-2} \quad\rightarrow\quad \sum_{k=0}^{\infty} ((k+2)-1)(k+2)c_{k+2}x^{k} \quad\implies\quad \sum_{k=0}^{\infty} (k+1)(k+2)c_{k+2}x^{k}.$$
+$$ \sum_{n=2}^{\infty} (n-1)(n)c_nx^{n-2} \quad\rightarrow\quad \sum_{k=0}^{\infty} ((k+2)-1)(k+2)c_{k+2}x^{k} \quad\rightarrow\quad \sum_{k=0}^{\infty} (k+1)(k+2)c_{k+2}x^{k}.$$
 To show that I've already reindexed, I prefer to keep the index as $k$. We now have:
 $$ y_{\text{guess}}''(x) = \sum_{k=0}^{\infty} (k+1)(k+2)c_{k+2}x^{k} $$
 Now, let's do the same, but with the second term of our differential equation.\\
@@ -171,9 +124,9 @@ Now, let's do the same, but with the second term of our differential equation.\\
  To do this, we will pull the 1$^\text{st}$ terms out of our first and last series.\\
  
  Pulling the first term out of $\sum_{k=0}^{\infty} (k+1)(k+2)c_{k+2}x^{k}$, we have:
- $$\left[\sum_{k=0}^{\infty} (k+1)(k+2)c_{k+2}x^{k}\right] \quad\implies\quad \underbrace{2c_2}_{0^{\text{th}}\text{ term}} + \left[\sum_{k=1}^{\infty} (k+1)(k+2)c_{k+2}x^{k}\right]. $$
+ $$\left[\sum_{k=0}^{\infty} (k+1)(k+2)c_{k+2}x^{k}\right] \quad\rightarrow\quad \underbrace{2c_2}_{0^{\text{th}}\text{ term}} + \left[\sum_{k=1}^{\infty} (k+1)(k+2)c_{k+2}x^{k}\right]. $$
  Pulling the first term out of $\sum_{k=0}^{\infty} 2c_kx^k$, we have:
- $$ \left[\sum_{k=0}^{\infty} 2c_kx^k\right] \quad\implies\quad  \underbrace{2c_0}_{0^{\text{th}}\text{ term}} + \left[\sum_{k=1}^{\infty} 2c_kx^k\right]. $$
+ $$ \left[\sum_{k=0}^{\infty} 2c_kx^k\right] \quad\rightarrow\quad  \underbrace{2c_0}_{0^{\text{th}}\text{ term}} + \left[\sum_{k=1}^{\infty} 2c_kx^k\right]. $$
  Rewriting our differential equation:
  $$ 2c_2 + \left[\sum_{k=1}^{\infty} (k+1)(k+2)c_{k+2}x^{k}\right] + \left[\sum_{k=1}^{\infty} 2(k)c_kx^{k}\right] +  2c_0 + \left[\sum_{k=1}^{\infty} 2c_kx^k\right] = 0. $$
  We will combine our sums since they begin at the same index and we will factor out $x^k$ since all of them have that term in common.
@@ -185,29 +138,29 @@ k & =0 & 2(c_2 + c_0) & =0 \\
 k & =1,2,3, \ldots & (k+1)(k+2) c_{k+2}+2c_{k}(k+1) & =0
 \end{array} $$
 This means that
-$$ 2(c_2 + c_0) = 0 \quad\implies\quad \boxed{c_2 = -c_0} $$
+$$ 2(c_2 + c_0) = 0 \quad\rightarrow\quad \boxed{c_2 = -c_0} $$
 and
-$$ (k+1)(k+2) c_{k+2}+2c_{k}(k+1)=0 \quad\implies\quad c_{k+2} = -\frac{2c_k(k+1)}{(k+1)(k+2)} \quad\implies\ldots $$
-$$ \ldots\quad\implies\quad c_{k+2} = \boxed{-\frac{2c_k}{(k+2)}} $$
+$$ (k+1)(k+2) c_{k+2}+2c_{k}(k+1)=0 \quad\rightarrow\quad c_{k+2} = -\frac{2c_k(k+1)}{(k+1)(k+2)} \quad\rightarrow\ldots $$
+$$ \ldots\quad\rightarrow\quad c_{k+2} = \boxed{-\frac{2c_k}{(k+2)}} $$
 
 Let's use the boxed relations to write out some of the first few coefficients, starting at $k=1$.
  $$ \begin{array}{rl}
-k=1: & c_3 = -\frac{2c_1}{3} \quad\overset{\text{rewriting}}\implies\quad c_3 = -\frac{2}{3\times1}c_1\\
+k=1: & c_3 = -\frac{2c_1}{3} \quad\overset{\text{rewriting}}\rightarrow\quad c_3 = -\frac{2}{3\times1}c_1\\
 
-k=2: & c_4 = -\frac{2c_2}{4} \quad\overset{c_2=-c_0}\implies\quad c_4 = \frac{2}{4}c_0 \\
+k=2: & c_4 = -\frac{2c_2}{4} \quad\overset{c_2=-c_0}\rightarrow\quad c_4 = \frac{2}{4}c_0 \\
 
-k=3: & c_5 = -\frac{2c_3}{5} \quad\overset{\text{using }c_3}\implies\quad c_5 = \frac{2\times2}{5\times3\times1}c_1 \\
+k=3: & c_5 = -\frac{2c_3}{5} \quad\overset{\text{using }c_3}\rightarrow\quad c_5 = \frac{2\times2}{5\times3\times1}c_1 \\
 
-k=4: & c_6 = -\frac{2c_4}{6} \quad\overset{\text{using }c_4}\implies\quad c_6 = -\frac{2\times2}{6\times4}c_0 \\
+k=4: & c_6 = -\frac{2c_4}{6} \quad\overset{\text{using }c_4}\rightarrow\quad c_6 = -\frac{2\times2}{6\times4}c_0 \\
 
-k=5: & c_7 = -\frac{2c_5}{7} \quad\overset{\text{using }c_5}\implies\quad c_7=-\frac{2\times2\times2}{7\times5\times3\times1}c_1 \\
+k=5: & c_7 = -\frac{2c_5}{7} \quad\overset{\text{using }c_5}\rightarrow\quad c_7=-\frac{2\times2\times2}{7\times5\times3\times1}c_1 \\
 
-k=6: & c_8 = -\frac{2c_6}{8} \quad\overset{\text{using }c_6}\implies\quad c_8 = \frac{2\times2\times2}{8\times6\times4}c_0 \\
+k=6: & c_8 = -\frac{2c_6}{8} \quad\overset{\text{using }c_6}\rightarrow\quad c_8 = \frac{2\times2\times2}{8\times6\times4}c_0 \\
 
-k=7: & c_9 = -\frac{2c_7}{9} \quad\overset{\text{using }c_7}\implies\quad c_9 = \frac{2\times2\times2\times2}{9\times7\times5\times3\times1}c_1 \\
+k=7: & c_9 = -\frac{2c_7}{9} \quad\overset{\text{using }c_7}\rightarrow\quad c_9 = \frac{2\times2\times2\times2}{9\times7\times5\times3\times1}c_1 \\
 
-k=8: & c_{10} = -\frac{2c_8}{10} \quad\overset{\text{using }c_8}\implies\quad c_{10} = -\frac{2\times2\times2\times2}{10\times8\times6\times4}c_0 \\
-k=9: & c_{11} = -\frac{2c_9}{11} \quad\overset{\text{using }c_9}\implies\quad c_{11} = -\frac{2\times2\times2\times2\times2}{11\times9\times7\times5\times3\times1}c_1
+k=8: & c_{10} = -\frac{2c_8}{10} \quad\overset{\text{using }c_8}\rightarrow\quad c_{10} = -\frac{2\times2\times2\times2}{10\times8\times6\times4}c_0 \\
+k=9: & c_{11} = -\frac{2c_9}{11} \quad\overset{\text{using }c_9}\rightarrow\quad c_{11} = -\frac{2\times2\times2\times2\times2}{11\times9\times7\times5\times3\times1}c_1
 \end{array} $$
 
 
@@ -249,7 +202,7 @@ $$ y_2(x) = c_1 \sum_{p=0}^{\infty} c_{2p+1}x^{2p+1}. $$
 Which can be fully written as:
 $$ \boxed{y_2(x) = c_1\sum_{p=0}^{\infty} (-1)^p \left[\frac{2^p}{(2p+1)!!}\right]x^{2p+1}} $$
 
-Something to note: our solution begins at $p=0$, which is how we obtain the $x^{2(0)+1} \implies x$ term of our solution.\\
+Something to note: our solution begins at $p=0$, which is how we obtain the $x^{2(0)+1} \rightarrow x$ term of our solution.\\
 
 Now, let's examine the $c_0$ terms.
 $$
@@ -281,7 +234,7 @@ $$ y_1(x) = c_0 \sum_{p=0}^{\infty} c_{2p}x^{2p}. $$
 In its full form:
 $$ \boxed{y_1(x) = c_0 \sum_{p=0}^{\infty} (-1)^{p}\left[\frac{2^{p}}{(2p)!!}\right] x^{2p}} $$
 Our final solution is then:
-$$ y(x) = y_1(x) + y_2(x) \quad\implies\quad y(x) = \sum_{p=0}^{\infty} c_0c_{2p}x^{2p} + c_1c_{2p+1}x^{2p+1} \quad\implies\ldots $$
+$$ y(x) = y_1(x) + y_2(x) \quad\rightarrow\quad y(x) = \sum_{p=0}^{\infty} c_0c_{2p}x^{2p} + c_1c_{2p+1}x^{2p+1} \quad\rightarrow\ldots $$
 $$ \underline{\boxed{y(x) = \sum_{p=0}^{\infty} c_0\left( (-1)^{p}\left[\frac{2^{p}}{(2p)!!}\right]\right)x^{2p} + c_1\left((-1)^{p}\left[\frac{2^{p}}{(2p+1)!!}\right]\right)x^{2p+1}}}$$
 
 Writing some terms out:
